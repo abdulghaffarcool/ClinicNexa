@@ -1,0 +1,267 @@
+﻿@model ClinicNexa.Web.ViewModels.AdminPatientEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Patient";
+}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- Page Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <span class="badge rounded-pill px-3 py-2 mb-2"
+                  style="background: #DBEAFE; color: #1D4ED8;">
+                <i class="bi bi-person-gear me-1"></i>
+                Patient Management
+            </span>
+
+            <h2 class="cn-page-title mb-2">Edit Patient</h2>
+            <p class="cn-muted mb-0">
+                Update patient contact details and profile information.
+            </p>
+        </div>
+
+        <a asp-action="Patients"
+           class="btn btn-outline-primary rounded-3">
+            <i class="bi bi-arrow-left me-2"></i>
+            Back to Patients
+        </a>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Main Form -->
+        <div class="col-lg-8">
+            <div class="cn-card p-4 p-lg-5">
+
+                <form asp-action="EditPatient" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="alert alert-danger rounded-3"
+                         role="alert"></div>
+
+                    <!-- Personal Information -->
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                             style="width: 48px; height: 48px; background: #DBEAFE; color: #1D4ED8;">
+                            <i class="bi bi-person-vcard fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Personal Information</h5>
+                            <p class="cn-muted small mb-0">
+                                Update the patient's name and date of birth.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label asp-for="FirstName" class="form-label fw-semibold">
+                                First Name
+                            </label>
+                            <input asp-for="FirstName"
+                                   class="form-control"
+                                   placeholder="Enter first name"
+                                   autocomplete="given-name" />
+                            <span asp-validation-for="FirstName"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="LastName" class="form-label fw-semibold">
+                                Last Name
+                            </label>
+                            <input asp-for="LastName"
+                                   class="form-control"
+                                   placeholder="Enter last name"
+                                   autocomplete="family-name" />
+                            <span asp-validation-for="LastName"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label fw-semibold">
+                                Email Address
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope"></i>
+                                </span>
+                                <input asp-for="Email"
+                                       type="email"
+                                       class="form-control"
+                                       readonly
+                                       aria-describedby="emailHelp" />
+                            </div>
+                            <div id="emailHelp" class="form-text">
+                                Email address cannot be changed here.
+                            </div>
+                            <span asp-validation-for="Email"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="DateOfBirth" class="form-label fw-semibold">
+                                Date of Birth
+                            </label>
+                            <input asp-for="DateOfBirth"
+                                   type="date"
+                                   class="form-control" />
+                            <span asp-validation-for="DateOfBirth"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Gender" class="form-label fw-semibold">
+                                Gender
+                            </label>
+                            <select asp-for="Gender" class="form-select">
+                                <option value="">Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span asp-validation-for="Gender"
+                                  class="text-danger small"></span>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <!-- Contact Information -->
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                             style="width: 48px; height: 48px; background: #CFFAFE; color: #0E7490;">
+                            <i class="bi bi-telephone fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Contact & Health Details</h5>
+                            <p class="cn-muted small mb-0">
+                                Maintain contact information and basic patient details.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label fw-semibold">
+                                Phone Number
+                            </label>
+                            <input asp-for="Phone"
+                                   type="tel"
+                                   class="form-control"
+                                   placeholder="Enter phone number"
+                                   autocomplete="tel" />
+                            <span asp-validation-for="Phone"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="BloodGroup" class="form-label fw-semibold">
+                                Blood Group
+                            </label>
+                            <select asp-for="BloodGroup" class="form-select">
+                                <option value="">Select blood group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                            <span asp-validation-for="BloodGroup"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="Address" class="form-label fw-semibold">
+                                Address
+                            </label>
+                            <textarea asp-for="Address"
+                                      class="form-control"
+                                      rows="3"
+                                      placeholder="Enter patient's address"
+                                      autocomplete="street-address"></textarea>
+                            <span asp-validation-for="Address"
+                                  class="text-danger small"></span>
+                        </div>
+
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="d-flex flex-column-reverse flex-sm-row justify-content-end gap-2 mt-4 pt-3 border-top">
+                        <a asp-action="Patients"
+                           class="btn btn-outline-secondary rounded-3 px-4">
+                            Cancel
+                        </a>
+
+                        <button type="submit"
+                                class="btn btn-gradient rounded-3 px-4">
+                            <i class="bi bi-check-lg me-2"></i>
+                            Save Changes
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+
+            <div class="cn-card p-4 mb-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                         style="width: 44px; height: 44px; background: #DBEAFE; color: #1D4ED8;">
+                        <i class="bi bi-info-circle fs-5"></i>
+                    </div>
+                    <h5 class="fw-bold mb-0">Profile Guidelines</h5>
+                </div>
+
+                <ul class="list-unstyled mb-0">
+                    <li class="d-flex gap-2 mb-3">
+                        <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                        <span class="cn-muted">
+                            Verify the patient's name and contact details.
+                        </span>
+                    </li>
+                    <li class="d-flex gap-2 mb-3">
+                        <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                        <span class="cn-muted">
+                            Confirm the date of birth and other details before saving.
+                        </span>
+                    </li>
+                    <li class="d-flex gap-2">
+                        <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                        <span class="cn-muted">
+                            Keep patient information accurate and limit access to authorized staff.
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="rounded-4 p-4"
+                 style="background: linear-gradient(135deg, #102A56, #1D4ED8); color: white;">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <i class="bi bi-shield-lock fs-2"></i>
+                    <h5 class="fw-bold mb-0">Privacy & Security</h5>
+                </div>
+
+                <p class="small mb-0" style="color: #DBEAFE;">
+                    Patient profile information should only be accessible to authorized clinic personnel. Account credentials are managed separately.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

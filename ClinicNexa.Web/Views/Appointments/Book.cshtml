@@ -1,0 +1,315 @@
+﻿@model ClinicNexa.Web.ViewModels.BookAppointmentViewModel
+
+@{
+    ViewData["Title"] = "Book Appointment";
+}
+
+<!-- Page Header -->
+<section class="cn-hero mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col">
+            <span class="badge rounded-pill bg-white text-primary px-3 py-2 mb-3">
+                <i class="bi bi-calendar2-check me-2"></i>
+                APPOINTMENT BOOKING
+            </span>
+
+            <h1 class="display-5 fw-bold mb-3">
+                Book your appointment
+            </h1>
+
+            <p class="lead mb-0">
+                Choose a suitable date and available time slot.
+            </p>
+        </div>
+
+        <div class="col-auto d-none d-md-block">
+            <i class="bi bi-calendar2-heart"
+               style="font-size: 5rem; color: #67E8F9;"></i>
+        </div>
+    </div>
+</section>
+
+<div class="row g-4">
+
+    <!-- Booking Form -->
+    <div class="col-lg-8">
+
+        <!-- Doctor Summary -->
+        <section class="cn-card p-4 mb-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
+                     style="width: 68px; height: 68px; background: linear-gradient(135deg, #1d4ed8, #0891b2); color: white;">
+                    <i class="bi bi-person-fill" style="font-size: 2.8rem;"></i>
+                </div>
+
+                <div class="flex-grow-1">
+                    <span class="cn-muted small">Your selected doctor</span>
+
+                    <h2 class="cn-page-title h4 mb-1">
+                        Dr. @Model.Doctor.FirstName @Model.Doctor.LastName
+                    </h2>
+
+                    <p class="cn-muted mb-0">
+                        @Model.Doctor.Qualification
+                    </p>
+                </div>
+
+                <a asp-controller="Doctors"
+                   asp-action="Details"
+                   asp-route-id="@Model.DoctorId"
+                   class="btn btn-outline-primary btn-sm d-none d-sm-inline-flex">
+                    View Profile
+                </a>
+            </div>
+        </section>
+
+        <!-- Date Selection -->
+        <section class="cn-card p-4 p-md-5 mb-4">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="d-flex align-items-center justify-content-center rounded-3"
+                     style="width: 48px; height: 48px; background: #dbeafe; color: #1d4ed8;">
+                    <i class="bi bi-calendar-event fs-4"></i>
+                </div>
+
+                <div>
+                    <h2 class="cn-page-title h4 mb-1">Choose a Date</h2>
+                    <p class="cn-muted mb-0">
+                        Select your preferred appointment date.
+                    </p>
+                </div>
+            </div>
+
+            <form asp-controller="Appointments"
+                  asp-action="Book"
+                  method="get">
+
+                <input type="hidden"
+                       name="doctorId"
+                       value="@Model.DoctorId" />
+
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-7">
+                        <label for="appointmentDate"
+                               class="form-label fw-semibold">
+                            Appointment Date
+                        </label>
+
+                        <input id="appointmentDate"
+                               type="date"
+                               name="date"
+                               value="@Model.Date.ToString("yyyy-MM-dd")"
+                               min="@DateTime.Today.ToString("yyyy-MM-dd")"
+                               class="form-control"
+                               required />
+                    </div>
+
+                    <div class="col-md-5">
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+                            <i class="bi bi-search me-2"></i>
+                            Check Availability
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Available Slots -->
+        <section class="cn-card p-4 p-md-5 mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center justify-content-center rounded-3"
+                         style="width: 48px; height: 48px; background: #cffafe; color: #0e7490;">
+                        <i class="bi bi-clock fs-4"></i>
+                    </div>
+
+                    <div>
+                        <h2 class="cn-page-title h4 mb-1">Available Slots</h2>
+                        <p class="cn-muted mb-0">
+                            @Model.Date.ToString("dddd, dd MMMM yyyy")
+                        </p>
+                    </div>
+                </div>
+
+                <span class="badge rounded-pill px-3 py-2"
+                      style="background: #dbeafe; color: #1e40af;">
+                    @Model.AvailableSlots.Count available
+                </span>
+            </div>
+
+            @if (!Model.AvailableSlots.Any())
+            {
+                <div class="text-center py-4">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                         style="width: 72px; height: 72px; background: #eff6ff; color: #1d4ed8;">
+                        <i class="bi bi-calendar-x fs-2"></i>
+                    </div>
+
+                    <h3 class="h5 fw-bold">No slots available</h3>
+
+                    <p class="cn-muted mb-0">
+                        There are no appointment slots available for
+                        @Model.Date.ToString("dddd, MMMM dd, yyyy").
+                        Try selecting another date.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <form asp-controller="Appointments"
+                      asp-action="Book"
+                      method="post">
+
+                    <input type="hidden" asp-for="DoctorId" />
+                    <input type="hidden" asp-for="Date" />
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">
+                            Select a time slot
+                        </label>
+
+                        <p class="cn-muted small mb-3">
+                            Choose one of the available appointment times below.
+                        </p>
+
+                        <div class="row g-3">
+                            @foreach (var slot in Model.AvailableSlots)
+                            {
+                                <div class="col-6 col-md-4 col-xl-3">
+                                    <button type="submit"
+                                            name="SelectedStartTime"
+                                            value="@slot.StartTime"
+                                            class="btn btn-outline-primary w-100 py-3">
+                                        <i class="bi bi-clock me-1"></i>
+                                        <span class="d-block fw-bold">
+                                            @slot.StartTime.ToString(@"hh\:mm")
+                                        </span>
+                                        <small class="d-block mt-1">
+                                            to @slot.EndTime.ToString(@"hh\:mm")
+                                        </small>
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="border-top pt-4"
+                         style="border-color: var(--cn-border) !important;">
+                        <label asp-for="Reason"
+                               class="form-label fw-semibold">
+                            Reason for Visit
+                            <span class="cn-muted fw-normal">(optional)</span>
+                        </label>
+
+                        <textarea asp-for="Reason"
+                                  class="form-control"
+                                  rows="3"
+                                  placeholder="Briefly describe your reason for the visit"></textarea>
+
+                        <span asp-validation-for="Reason"
+                              class="text-danger small"></span>
+
+                        <p class="cn-muted small mt-2 mb-0">
+                            Please avoid including unnecessary sensitive information.
+                        </p>
+                    </div>
+
+                    <div class="mt-4 p-3 rounded-3"
+                         style="background: #eff6ff; border: 1px solid #dbeafe;">
+                        <div class="d-flex gap-2 align-items-start">
+                            <i class="bi bi-info-circle-fill text-primary mt-1"></i>
+
+                            <p class="small cn-muted mb-0">
+                                Selecting a time submits your booking request.
+                                Please verify the date and time before proceeding.
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            }
+        </section>
+    </div>
+
+    <!-- Booking Information Sidebar -->
+    <aside class="col-lg-4">
+        <section class="cn-card p-4 mb-4">
+            <h2 class="cn-page-title h5 mb-4">
+                <i class="bi bi-clipboard2-check me-2 text-primary"></i>
+                Booking Summary
+            </h2>
+
+            <div class="d-flex gap-3 mb-4">
+                <i class="bi bi-person-check fs-4 text-primary"></i>
+                <div>
+                    <div class="cn-muted small">Doctor</div>
+                    <div class="fw-semibold">
+                        Dr. @Model.Doctor.FirstName @Model.Doctor.LastName
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3 mb-4">
+                <i class="bi bi-calendar3 fs-4 text-primary"></i>
+                <div>
+                    <div class="cn-muted small">Selected Date</div>
+                    <div class="fw-semibold">
+                        @Model.Date.ToString("dd MMM yyyy")
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3 mb-4">
+                <i class="bi bi-cash-coin fs-4 text-primary"></i>
+                <div>
+                    <div class="cn-muted small">Consultation Fee</div>
+                    <div class="fw-bold text-primary">
+                        @Model.Doctor.ConsultationFee.ToString("N0")
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3">
+                <i class="bi bi-clock-history fs-4 text-primary"></i>
+                <div>
+                    <div class="cn-muted small">Appointment Time</div>
+                    <div class="fw-semibold">
+                        Select an available slot
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="d-flex align-items-start gap-2">
+                <i class="bi bi-shield-check fs-5 text-primary"></i>
+                <p class="cn-muted small mb-0">
+                    Review your selection before submitting your appointment request.
+                </p>
+            </div>
+        </section>
+
+        <div class="rounded-4 p-4"
+             style="background: linear-gradient(135deg, #102a56, #1d4ed8); color: white;">
+            <i class="bi bi-heart-pulse fs-2 mb-3 d-inline-block"
+               style="color: #67E8F9;"></i>
+
+            <h3 class="h5 fw-bold">Your health matters</h3>
+
+            <p class="small mb-0" style="color: #dbeafe;">
+                Choose a convenient time and take the next step
+                toward your healthcare appointment.
+            </p>
+        </div>
+    </aside>
+</div>
+
+<!-- Back Navigation -->
+<div class="mt-4 mb-3">
+    <a asp-controller="Doctors"
+       asp-action="Details"
+       asp-route-id="@Model.DoctorId"
+       class="btn btn-outline-primary">
+        <i class="bi bi-arrow-left me-2"></i>
+        Back to Doctor Profile
+    </a>
+</div>

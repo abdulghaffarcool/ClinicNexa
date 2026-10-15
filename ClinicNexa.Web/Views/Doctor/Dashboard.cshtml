@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Doctor Dashboard";
+}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- Welcome Hero -->
+    <div class="cn-hero rounded-4 p-4 p-lg-5 mb-4">
+        <div class="d-flex flex-column flex-md-row
+                    justify-content-between align-items-md-center gap-4">
+
+            <div>
+                <span class="badge rounded-pill bg-white text-primary mb-3">
+                    <i class="bi bi-heart-pulse me-1"></i>
+                    ClinicNexa Doctor Portal
+                </span>
+
+                <h1 class="fw-bold mb-2">Welcome, Doctor!</h1>
+
+                <p class="mb-0 opacity-75">
+                    Manage your professional profile, working hours,
+                    and availability from one place.
+                </p>
+            </div>
+
+            <div class="d-none d-md-flex align-items-center
+                        justify-content-center rounded-circle bg-white bg-opacity-25"
+                 style="width: 100px; height: 100px;">
+                <i class="bi bi-person-badge fs-1"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mb-4">
+        <h4 class="fw-bold mb-1">Quick Actions</h4>
+        <p class="cn-muted mb-0">
+            Access your doctor portal tools.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Profile -->
+        <div class="col-12 col-md-6">
+            <div class="cn-card h-100 p-4 p-lg-5">
+                <div class="rounded-3 bg-primary bg-opacity-10
+                            text-primary d-inline-flex align-items-center
+                            justify-content-center mb-4"
+                     style="width: 64px; height: 64px;">
+                    <i class="bi bi-person-vcard fs-2"></i>
+                </div>
+
+                <h5 class="fw-bold mb-2">My Profile</h5>
+
+                <p class="cn-muted mb-4">
+                    Update your personal information, qualifications,
+                    consultation fee, biography, and specialties.
+                </p>
+
+                <a asp-controller="Doctor"
+                   asp-action="Profile"
+                   class="btn btn-gradient rounded-3 px-4">
+                    Manage Profile
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Schedule -->
+        <div class="col-12 col-md-6">
+            <div class="cn-card h-100 p-4 p-lg-5">
+                <div class="rounded-3 bg-info bg-opacity-10
+                            text-info d-inline-flex align-items-center
+                            justify-content-center mb-4"
+                     style="width: 64px; height: 64px;">
+                    <i class="bi bi-calendar-week fs-2"></i>
+                </div>
+
+                <h5 class="fw-bold mb-2">My Schedule</h5>
+
+                <p class="cn-muted mb-4">
+                    Configure weekly working hours, set appointment
+                    durations, and enable or disable availability.
+                </p>
+
+                <a asp-controller="Schedule"
+                   asp-action="Schedule"
+                   class="btn btn-outline-primary rounded-3 px-4">
+                    Manage Schedule
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Helpful Reminder -->
+    <div class="cn-card p-4 mt-4">
+        <div class="d-flex align-items-start gap-3">
+            <div class="text-primary fs-4">
+                <i class="bi bi-lightbulb"></i>
+            </div>
+
+            <div>
+                <h6 class="fw-bold mb-1">Keep your profile up to date</h6>
+                <p class="cn-muted mb-0">
+                    Ensure your qualifications, specialties, consultation fee,
+                    and working hours are accurate so patients can make
+                    informed booking decisions.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>

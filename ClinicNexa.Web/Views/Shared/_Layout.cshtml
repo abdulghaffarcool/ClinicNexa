@@ -1,0 +1,296 @@
+﻿@{
+    var currentController =
+        ViewContext.RouteData.Values["controller"]?.ToString();
+
+    var currentAction =
+        ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - ClinicNexa</title>
+
+    <script type="importmap"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- Application styles -->
+    <link rel="stylesheet"
+          href="~/ClinicNexa.Web.styles.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+</head>
+
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg cn-navbar sticky-top">
+            <div class="container-fluid px-3 px-lg-4">
+
+                <!-- Brand -->
+                <a class="navbar-brand cn-brand"
+                   asp-area=""
+                   asp-controller="Home"
+                   asp-action="Index">
+
+                    <i class="bi bi-heart-pulse-fill"></i>
+                    Clinic<span>Nexa</span>
+                </a>
+
+                <!-- Mobile navigation toggle -->
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#clinicNavbar"
+                        aria-controls="clinicNavbar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="clinicNavbar">
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <!-- Public navigation -->
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")"
+                               asp-controller="Home"
+                               asp-action="Index">
+
+                                <i class="bi bi-house me-1"></i>
+                                Home
+                            </a>
+                        </li>
+
+                        @* <li class="nav-item">
+                            <a class="nav-link @(currentController == "Doctors" && currentAction == "Index" ? "active" : "")"
+                               asp-controller="Doctors"
+                               asp-action="Index">
+
+                                <i class="bi bi-person-badge me-1"></i>
+                                Doctors
+                            </a>
+                        </li> *@
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <!-- Patient navigation -->
+                            @if (User.IsInRole("Patient"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Patient" && currentAction == "Dashboard" ? "active" : "")"
+                                       asp-controller="Patient"
+                                       asp-action="Dashboard">
+
+                                        <i class="bi bi-speedometer2 me-1"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Patient" && currentAction == "Appointments" ? "active" : "")"
+                                       asp-controller="Patient"
+                                       asp-action="Appointments">
+
+                                        <i class="bi bi-calendar-check me-1"></i>
+                                        My Appointments
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Patient" && currentAction == "Profile" ? "active" : "")"
+                                       asp-controller="Patient"
+                                       asp-action="Profile">
+
+                                        <i class="bi bi-person me-1"></i>
+                                        My Profile
+                                    </a>
+                                </li>
+                            }
+
+                            <!-- Doctor navigation -->
+                            @if (User.IsInRole("Doctor"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Doctor" && currentAction == "Dashboard" ? "active" : "")"
+                                       asp-controller="Doctor"
+                                       asp-action="Dashboard">
+
+                                        <i class="bi bi-speedometer2 me-1"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Doctor" && currentAction == "Appointments" ? "active" : "")"
+                                       asp-controller="Doctor"
+                                       asp-action="Appointments">
+
+                                        <i class="bi bi-calendar-check me-1"></i>
+                                        Appointments
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Doctor" && currentAction == "Schedule" ? "active" : "")"
+                                       asp-controller="Schedule"
+                                       asp-action="Schedule">
+
+                                        <i class="bi bi-clock me-1"></i>
+                                        Schedule
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Doctor" && currentAction == "Profile" ? "active" : "")"
+                                       asp-controller="Doctor"
+                                       asp-action="Profile">
+
+                                        <i class="bi bi-person me-1"></i>
+                                        My Profile
+                                    </a>
+                                </li>
+                            }
+
+                            <!-- Admin navigation -->
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Admin" && currentAction == "Dashboard" ? "active" : "")"
+                                       asp-controller="Admin"
+                                       asp-action="Dashboard">
+
+                                        <i class="bi bi-speedometer2 me-1"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Admin" && currentAction == "Doctors" ? "active" : "")"
+                                       asp-controller="Admin"
+                                       asp-action="Doctors">
+
+                                        <i class="bi bi-person-badge me-1"></i>
+                                        Doctors
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Admin" && currentAction == "Specialties" ? "active" : "")"
+                                       asp-controller="Specialty"
+                                       asp-action="Specialties">
+
+                                        <i class="bi bi-tags me-1"></i>
+                                        Specialties
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Admin" && currentAction == "Patients" ? "active" : "")"
+                                       asp-controller="Admin"
+                                       asp-action="Patients">
+
+                                        <i class="bi bi-people me-1"></i>
+                                        Patients
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Admin" && currentAction == "Appointments" ? "active" : "")"
+                                       asp-controller="Admin"
+                                       asp-action="Appointments">
+
+                                        <i class="bi bi-calendar-check me-1"></i>
+                                        Appointments
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentController == "Admin" && currentAction == "Users" ? "active" : "")"
+                                       asp-controller="Admin"
+                                       asp-action="Users">
+
+                                        <i class="bi bi-person-gear me-1"></i>
+                                        Users
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+
+                    <!-- Login / Logout / Register -->
+                    <div class="d-flex align-items-center">
+                        <partial name="_LoginPartial" />
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <div class="container-fluid px-3 px-lg-4 py-4">
+        <main role="main" class="pb-3">
+            <partial name="_Notifications" />
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="cn-footer">
+        <div class="container-fluid px-3 px-lg-4
+                    d-flex flex-column flex-sm-row
+                    justify-content-between align-items-center gap-2">
+
+            <div>
+                <i class="bi bi-heart-pulse-fill me-1"></i>
+                <span>&copy; @DateTime.Now.Year ClinicNexa</span>
+                <span class="mx-1">|</span>
+                <span>Healthcare, made simpler.</span>
+            </div>
+
+            <div>
+                <a asp-area=""
+                   asp-controller="Home"
+                   asp-action="Privacy">
+                    Privacy Policy
+                </a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".toast").forEach(function (element) {
+                bootstrap.Toast.getOrCreateInstance(element).show();
+            });
+        });
+
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

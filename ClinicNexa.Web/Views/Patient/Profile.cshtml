@@ -1,0 +1,252 @@
+﻿@model ClinicNexa.Web.ViewModels.PatientProfileViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- Page Header -->
+    <div class="cn-hero p-4 p-lg-5 mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="badge rounded-pill bg-white text-primary px-3 py-2 mb-3">
+                    <i class="bi bi-person-vcard me-1"></i>
+                    Patient Portal
+                </span>
+
+                <h1 class="display-6 fw-bold text-white mb-3">
+                    My Profile
+                </h1>
+
+                <p class="text-white opacity-75 mb-0">
+                    Keep your personal information up to date for a smoother healthcare experience.
+                </p>
+            </div>
+
+            <div class="col-lg-4 text-lg-end">
+                <i class="bi bi-person-circle text-white"
+                   style="font-size: 6rem; opacity: 0.85;"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb / Navigation -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h2 class="cn-page-title mb-1">Personal Information</h2>
+            <p class="cn-muted mb-0">
+                Update your details and save your changes.
+            </p>
+        </div>
+
+        <a asp-action="Dashboard"
+           class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left me-1"></i>
+            Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Validation Summary -->
+    <div asp-validation-summary="ModelOnly"
+         class="alert alert-danger rounded-3"
+         role="alert"></div>
+
+    <form asp-action="Profile" method="post">
+        <div class="row g-4">
+
+            <!-- Profile Form -->
+            <div class="col-lg-8">
+                <div class="cn-card p-4 p-lg-5">
+
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                             style="width: 52px; height: 52px; background: #DBEAFE;">
+                            <i class="bi bi-person-lines-fill text-primary fs-3"></i>
+                        </div>
+
+                        <div>
+                            <h5 class="fw-bold mb-1">Personal Details</h5>
+                            <p class="cn-muted small mb-0">
+                                Fields marked as required by your validation rules must be completed.
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr class="mb-4" />
+
+                    <div class="row g-4">
+
+                        <!-- First Name -->
+                        <div class="col-md-6">
+                            <label asp-for="FirstName"
+                                   class="form-label fw-semibold"></label>
+
+                            <input asp-for="FirstName"
+                                   class="form-control"
+                                   placeholder="Enter first name" />
+
+                            <span asp-validation-for="FirstName"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="col-md-6">
+                            <label asp-for="LastName"
+                                   class="form-label fw-semibold"></label>
+
+                            <input asp-for="LastName"
+                                   class="form-control"
+                                   placeholder="Enter last name" />
+
+                            <span asp-validation-for="LastName"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <!-- Date of Birth -->
+                        <div class="col-md-6">
+                            <label asp-for="DateOfBirth"
+                                   class="form-label fw-semibold"></label>
+
+                            <input asp-for="DateOfBirth"
+                                   type="date"
+                                   class="form-control" />
+
+                            <span asp-validation-for="DateOfBirth"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="col-md-6">
+                            <label asp-for="Gender"
+                                   class="form-label fw-semibold"></label>
+
+                            <select asp-for="Gender"
+                                    class="form-select">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+
+                            <span asp-validation-for="Gender"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="col-md-6">
+                            <label asp-for="Phone"
+                                   class="form-label fw-semibold"></label>
+
+                            <input asp-for="Phone"
+                                   class="form-control"
+                                   placeholder="+92 300 1234567" />
+
+                            <span asp-validation-for="Phone"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <!-- Blood Group -->
+                        <div class="col-md-6">
+                            <label asp-for="BloodGroup"
+                                   class="form-label fw-semibold"></label>
+
+                            <select asp-for="BloodGroup"
+                                    class="form-select">
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+
+                            <span asp-validation-for="BloodGroup"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="col-12">
+                            <label asp-for="Address"
+                                   class="form-label fw-semibold"></label>
+
+                            <textarea asp-for="Address"
+                                      class="form-control"
+                                      rows="3"
+                                      placeholder="Enter your address"></textarea>
+
+                            <span asp-validation-for="Address"
+                                  class="text-danger small"></span>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div class="d-flex flex-wrap justify-content-end gap-2">
+                        <a asp-action="Dashboard"
+                           class="btn btn-outline-secondary px-4">
+                            Cancel
+                        </a>
+
+                        <button type="submit"
+                                class="btn btn-gradient px-4">
+                            <i class="bi bi-check-lg me-1"></i>
+                            Save Changes
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Information Sidebar -->
+            <div class="col-lg-4">
+                <div class="cn-card p-4 mb-4">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center mb-3"
+                         style="width: 52px; height: 52px; background: #CFFAFE;">
+                        <i class="bi bi-shield-check text-info fs-3"></i>
+                    </div>
+
+                    <h5 class="fw-bold mb-2">Keep Your Profile Updated</h5>
+
+                    <p class="cn-muted mb-0">
+                        Accurate contact and personal information can help keep your appointment details organized.
+                    </p>
+                </div>
+
+                <div class="cn-card p-4">
+                    <h6 class="fw-bold mb-3">
+                        <i class="bi bi-lightbulb text-info me-2"></i>
+                        Profile Tips
+                    </h6>
+
+                    <ul class="list-unstyled cn-muted mb-0">
+                        <li class="d-flex gap-2 mb-3">
+                            <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                            <span>Use your correct name and contact number.</span>
+                        </li>
+
+                        <li class="d-flex gap-2 mb-3">
+                            <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                            <span>Keep your address and date of birth accurate.</span>
+                        </li>
+
+                        <li class="d-flex gap-2">
+                            <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                            <span>Remember to save changes before leaving the page.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

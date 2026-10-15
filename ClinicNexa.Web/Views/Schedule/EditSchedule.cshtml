@@ -1,0 +1,210 @@
+﻿@model ClinicNexa.Web.ViewModels.ScheduleViewModel
+
+@{
+    ViewData["Title"] = "Edit Schedule";
+}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- Page Header -->
+    <div class="mb-4">
+        <a asp-action="Schedule"
+           class="text-decoration-none cn-muted small">
+            <i class="bi bi-arrow-left me-1"></i>
+            Back to My Schedule
+        </a>
+
+        <div class="cn-hero rounded-4 p-4 p-lg-5 mt-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-3 bg-white bg-opacity-25
+                            d-flex align-items-center justify-content-center"
+                     style="width: 64px; height: 64px;">
+                    <i class="bi bi-calendar2-week fs-2"></i>
+                </div>
+
+                <div>
+                    <h2 class="fw-bold mb-2">Edit Schedule</h2>
+                    <p class="mb-0 opacity-75">
+                        Update your working hours and appointment duration.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+        <!-- Edit Form -->
+        <div class="col-12 col-lg-8">
+            <div class="cn-card p-4 p-md-5">
+
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-1">Schedule Details</h5>
+                    <p class="cn-muted small mb-0">
+                        Make changes to your weekly availability.
+                    </p>
+                </div>
+
+                <form asp-action="EditSchedule"
+                      asp-route-id="@Context.Request.RouteValues["id"]"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="alert alert-danger rounded-3 mb-4">
+                    </div>
+
+                    <!-- Day -->
+                    <div class="mb-4">
+                        <label asp-for="DayOfWeek"
+                               class="form-label fw-semibold">
+                            <i class="bi bi-calendar3 text-primary me-1"></i>
+                            Day of the Week
+                        </label>
+
+                        <select asp-for="DayOfWeek" class="form-select">
+                            @foreach (DayOfWeek day in Enum.GetValues<DayOfWeek>())
+                            {
+                                <option value="@day">@day</option>
+                            }
+                        </select>
+
+                        <span asp-validation-for="DayOfWeek"
+                              class="text-danger small">
+                        </span>
+                    </div>
+
+                    <!-- Working Hours -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 col-md-6">
+                            <label asp-for="StartTime"
+                                   class="form-label fw-semibold">
+                                <i class="bi bi-clock text-primary me-1"></i>
+                                Start Time
+                            </label>
+
+                            <input asp-for="StartTime"
+                                   type="time"
+                                   class="form-control" />
+
+                            <span asp-validation-for="StartTime"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="EndTime"
+                                   class="form-label fw-semibold">
+                                <i class="bi bi-clock-history text-primary me-1"></i>
+                                End Time
+                            </label>
+
+                            <input asp-for="EndTime"
+                                   type="time"
+                                   class="form-control" />
+
+                            <span asp-validation-for="EndTime"
+                                  class="text-danger small">
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Appointment Duration -->
+                    <div class="mb-4">
+                        <label asp-for="AppointmentDurationMinutes"
+                               class="form-label fw-semibold">
+                            <i class="bi bi-hourglass-split text-primary me-1"></i>
+                            Appointment Duration
+                        </label>
+
+                        <select asp-for="AppointmentDurationMinutes"
+                                class="form-select">
+                            <option value="15">15 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">60 minutes</option>
+                        </select>
+
+                        <span asp-validation-for="AppointmentDurationMinutes"
+                              class="text-danger small">
+                        </span>
+
+                        <div class="form-text">
+                            This duration determines the length of each appointment slot.
+                        </div>
+                    </div>
+
+                    <hr class="opacity-25 my-4" />
+
+                    <!-- Actions -->
+                    <div class="d-flex flex-column flex-sm-row gap-2">
+                        <button type="submit"
+                                class="btn btn-gradient rounded-3 px-4 py-2">
+                            <i class="bi bi-check-circle me-2"></i>
+                            Update Schedule
+                        </button>
+
+                        <a asp-action="Schedule"
+                           class="btn btn-outline-secondary rounded-3 px-4 py-2">
+                            Cancel
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-12 col-lg-4">
+
+            <div class="cn-card p-4 mb-4">
+                <div class="rounded-3 bg-primary bg-opacity-10
+                            text-primary d-inline-flex align-items-center
+                            justify-content-center mb-3"
+                     style="width: 52px; height: 52px;">
+                    <i class="bi bi-lightbulb fs-4"></i>
+                </div>
+
+                <h5 class="fw-bold mb-3">Before Updating</h5>
+
+                <div class="d-flex gap-3 mb-3">
+                    <i class="bi bi-check-circle-fill text-success mt-1"></i>
+                    <p class="cn-muted small mb-0">
+                        Verify that your new working hours reflect your availability.
+                    </p>
+                </div>
+
+                <div class="d-flex gap-3 mb-3">
+                    <i class="bi bi-check-circle-fill text-success mt-1"></i>
+                    <p class="cn-muted small mb-0">
+                        Choose a suitable duration for each appointment.
+                    </p>
+                </div>
+
+                <div class="d-flex gap-3">
+                    <i class="bi bi-info-circle-fill text-info mt-1"></i>
+                    <p class="cn-muted small mb-0">
+                        Check for conflicts with existing appointments before changing hours.
+                    </p>
+                </div>
+            </div>
+
+            <div class="rounded-4 p-4 border"
+                 style="background: rgba(6, 182, 212, 0.06); border-color: rgba(6, 182, 212, 0.25) !important;">
+                <h6 class="fw-bold mb-2">
+                    <i class="bi bi-shield-check text-info me-2"></i>
+                    Keep Your Schedule Accurate
+                </h6>
+                <p class="cn-muted small mb-0">
+                    Accurate working hours help patients find appropriate appointment slots.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

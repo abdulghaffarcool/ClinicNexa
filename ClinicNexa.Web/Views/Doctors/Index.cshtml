@@ -1,0 +1,265 @@
+﻿@model IEnumerable<ClinicNexa.Web.Models.Doctor>
+
+@{
+    ViewData["Title"] = "Find a Doctor";
+
+    var specialties = ViewBag.Specialties
+        as IEnumerable<ClinicNexa.Web.Models.Specialty>;
+
+    int? selectedSpecialtyId = ViewBag.SelectedSpecialtyId;
+}
+
+<!-- Page Header -->
+<section class="cn-hero mb-5">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <span class="badge rounded-pill bg-white text-primary px-3 py-2 mb-3">
+                <i class="bi bi-heart-pulse-fill me-2"></i>
+                YOUR HEALTH, YOUR CHOICE
+            </span>
+
+            <h1 class="display-4 fw-bold mb-3">
+                Find your
+                <span style="color: #67E8F9;">doctor.</span>
+            </h1>
+
+            <p class="lead mb-0" style="max-width: 650px;">
+                Explore healthcare professionals, review their
+                qualifications, and find a doctor who suits your needs.
+            </p>
+        </div>
+
+        <div class="col-lg-4 text-center d-none d-lg-block">
+            <div class="cn-glass p-4">
+                <i class="bi bi-person-vcard"
+                   style="font-size: 5rem; color: #67E8F9;"></i>
+
+                <h2 class="h5 fw-bold mt-3 mb-2">
+                    Your care starts here
+                </h2>
+
+                <p class="mb-0 small">
+                    Explore profiles and consultation information.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search and Filter -->
+<section class="cn-card p-3 p-md-4 mb-5">
+    <div class="row align-items-center g-3">
+        <div class="col-lg-5">
+            <h2 class="h5 fw-bold mb-1">
+                <i class="bi bi-search me-2 text-primary"></i>
+                Explore our doctors
+            </h2>
+
+            <p class="cn-muted small mb-0">
+                Filter the directory by medical specialty.
+            </p>
+        </div>
+
+        <div class="col-lg-7">
+            <form asp-controller="Doctors"
+                  asp-action="Index"
+                  method="get"
+                  class="row g-2 align-items-center">
+
+                <div class="col-sm">
+                    <label for="specialtyId" class="visually-hidden">
+                        Medical specialty
+                    </label>
+
+                    <select id="specialtyId"
+                            name="specialtyId"
+                            class="form-select"
+                            onchange="this.form.submit()">
+
+                        <option value="">All Specialties</option>
+
+                        @foreach (var specialty in specialties ?? [])
+                        {
+                            <option value="@specialty.Id"
+                                    selected="@(selectedSpecialtyId == specialty.Id)">
+                                @specialty.Name
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-sm-auto">
+                    <noscript>
+                        <button type="submit" class="btn btn-primary">
+                            Apply Filter
+                        </button>
+                    </noscript>
+
+                    @if (selectedSpecialtyId.HasValue)
+                    {
+                        <a asp-controller="Doctors"
+                           asp-action="Index"
+                           class="btn btn-outline-primary">
+                            <i class="bi bi-x-circle me-1"></i>
+                            Clear
+                        </a>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Results Heading -->
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+    <div>
+        <h2 class="cn-page-title h3 mb-1">Available Doctors</h2>
+        <p class="cn-muted mb-0">
+            Browse profiles and explore your options.
+        </p>
+    </div>
+
+    @if (selectedSpecialtyId.HasValue)
+    {
+        <span class="badge rounded-pill bg-white text-primary border px-3 py-2">
+            <i class="bi bi-funnel me-1"></i>
+            Specialty filter active
+        </span>
+    }
+</div>
+
+<!-- Doctor Results -->
+@if (Model == null || !Model.Any())
+{
+    <div class="cn-card text-center p-5 mb-5">
+        <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-4"
+             style="width: 80px; height: 80px; background: #dbeafe; color: #1d4ed8;">
+            <i class="bi bi-person-exclamation fs-1"></i>
+        </div>
+
+        <h2 class="cn-page-title h4 mb-2">
+            No doctors found
+        </h2>
+
+        <p class="cn-muted mb-4">
+            We couldn't find doctors matching this specialty.
+            Try selecting another specialty or view all doctors.
+        </p>
+
+        <a asp-controller="Doctors"
+           asp-action="Index"
+           class="btn btn-primary">
+            <i class="bi bi-arrow-repeat me-2"></i>
+            View All Doctors
+        </a>
+    </div>
+}
+else
+{
+    <div class="row g-4 mb-5">
+        @foreach (var doctor in Model)
+        {
+            <div class="col-md-6 col-xl-4">
+                <article class="cn-card h-100 d-flex flex-column">
+                    <!-- Doctor Card Header -->
+                    <div class="p-4 text-center"
+                         style="background: linear-gradient(135deg, #eff6ff, #ecfeff);">
+
+                        <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle"
+                             style="width: 88px; height: 88px; background: linear-gradient(135deg, #1d4ed8, #0891b2); color: white; box-shadow: 0 8px 20px rgba(29,78,216,.2);">
+                            <i class="bi bi-person-fill"
+                               style="font-size: 3.5rem;"></i>
+                        </div>
+
+                        <h3 class="h5 fw-bold mb-1">
+                            Dr. @doctor.FirstName @doctor.LastName
+                        </h3>
+
+                        <p class="cn-muted small mb-0">
+                            @doctor.Qualification
+                        </p>
+                    </div>
+
+                    <!-- Doctor Details -->
+                    <div class="p-4 d-flex flex-column flex-grow-1">
+                        <div class="mb-4">
+                            <div class="small fw-semibold text-uppercase mb-2"
+                                 style="color: var(--cn-muted); letter-spacing: .5px;">
+                                Specialties
+                            </div>
+
+                            @if (doctor.DoctorSpecialties != null
+                                                && doctor.DoctorSpecialties.Any())
+                            {
+                                @foreach (var ds in doctor.DoctorSpecialties)
+                                {
+                                    <span class="badge rounded-pill me-1 mb-1 px-3 py-2"
+                                          style="background: #dbeafe; color: #1e40af;">
+                                        @ds.Specialty.Name
+                                    </span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted small">
+                                    No specialties listed
+                                </span>
+                            }
+                        </div>
+
+                        <div class="rounded-3 p-3 mb-4"
+                             style="background: #f4f8ff; border: 1px solid #e0eaff;">
+
+                            <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+                                <span class="cn-muted small">
+                                    <i class="bi bi-briefcase me-2 text-primary"></i>
+                                    Experience
+                                </span>
+
+                                <span class="fw-semibold text-end">
+                                    @doctor.ExperienceYears years
+                                </span>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between gap-3">
+                                <span class="cn-muted small">
+                                    <i class="bi bi-cash-coin me-2 text-primary"></i>
+                                    Consultation
+                                </span>
+
+                                <span class="fw-bold text-primary text-end">
+                                    @doctor.ConsultationFee.ToString("N0")
+                                </span>
+                            </div>
+                        </div>
+
+                        <a asp-controller="Doctors"
+                           asp-action="Details"
+                           asp-route-id="@doctor.Id"
+                           class="btn btn-primary w-100 mt-auto">
+                            View Doctor Profile
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        }
+    </div>
+}
+
+<!-- Bottom CTA -->
+<section class="cn-card p-4 p-md-5 text-center mb-4">
+    <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+         style="width: 64px; height: 64px; background: #cffafe; color: #0e7490;">
+        <i class="bi bi-calendar2-check fs-2"></i>
+    </div>
+
+    <h2 class="cn-page-title h3 mb-3">
+        Found a doctor who meets your needs?
+    </h2>
+
+    <p class="cn-muted mx-auto mb-0" style="max-width: 600px;">
+        Open a doctor's profile to review further details and continue
+        to the available appointment options.
+    </p>
+</section>

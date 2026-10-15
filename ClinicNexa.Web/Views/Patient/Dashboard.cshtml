@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Patient Dashboard";
+}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- Page Header -->
+    <div class="cn-hero p-4 p-lg-5 mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="badge rounded-pill bg-white text-primary px-3 py-2 mb-3">
+                    <i class="bi bi-heart-pulse me-1"></i> Patient Portal
+                </span>
+
+                <h1 class="display-6 fw-bold text-white mb-3">
+                    Welcome to ClinicNexa
+                </h1>
+
+                <p class="text-white mb-0 opacity-75">
+                    Manage your appointments, explore doctors, and keep your healthcare journey organized in one place.
+                </p>
+            </div>
+
+            <div class="col-lg-4 text-lg-end">
+                <i class="bi bi-person-heart text-white"
+                   style="font-size: 6rem; opacity: 0.85;"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div>
+            <h2 class="cn-page-title mb-1">Your Dashboard</h2>
+            <p class="cn-muted mb-0">Quick access to your healthcare services.</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Browse Doctors -->
+        <div class="col-md-6 col-xl-4">
+            <div class="cn-card h-100 p-4">
+                <div class="d-flex align-items-center justify-content-center rounded-3 mb-3"
+                     style="width: 56px; height: 56px; background: #DBEAFE;">
+                    <i class="bi bi-search text-primary fs-3"></i>
+                </div>
+
+                <h5 class="fw-bold mb-2">Find a Doctor</h5>
+                <p class="cn-muted mb-4">
+                    Explore available doctors and find the right specialist for your needs.
+                </p>
+
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="btn btn-gradient mt-auto">
+                    Browse Doctors <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Appointments -->
+        <div class="col-md-6 col-xl-4">
+            <div class="cn-card h-100 p-4">
+                <div class="d-flex align-items-center justify-content-center rounded-3 mb-3"
+                     style="width: 56px; height: 56px; background: #CFFAFE;">
+                    <i class="bi bi-calendar2-check text-info fs-3"></i>
+                </div>
+
+                <h5 class="fw-bold mb-2">My Appointments</h5>
+                <p class="cn-muted mb-4">
+                    View your scheduled appointments and check your appointment details.
+                </p>
+
+                <a asp-controller="Appointments"
+                   asp-action="MyAppointments"
+                   class="btn btn-outline-primary mt-auto">
+                    View Appointments <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Patient Profile -->
+        <div class="col-md-6 col-xl-4">
+            <div class="cn-card h-100 p-4">
+                <div class="d-flex align-items-center justify-content-center rounded-3 mb-3"
+                     style="width: 56px; height: 56px; background: #E0E7FF;">
+                    <i class="bi bi-person-vcard text-primary fs-3"></i>
+                </div>
+
+                <h5 class="fw-bold mb-2">My Profile</h5>
+                <p class="cn-muted mb-4">
+                    Review and update your personal information and patient profile.
+                </p>
+
+                <a asp-controller="Patient"
+                   asp-action="Profile"
+                   class="btn btn-outline-primary mt-auto">
+                    Manage Profile <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Helpful Information -->
+    <div class="cn-card p-4 mt-4">
+        <div class="d-flex align-items-start gap-3">
+            <div class="text-info fs-3">
+                <i class="bi bi-info-circle"></i>
+            </div>
+            <div>
+                <h5 class="fw-bold mb-2">Your Healthcare, Made Simpler</h5>
+                <p class="cn-muted mb-0">
+                    Book appointments with doctors, keep track of your visits, and maintain your patient profile through the ClinicNexa portal.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>

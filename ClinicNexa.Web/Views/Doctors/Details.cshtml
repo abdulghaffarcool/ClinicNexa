@@ -1,0 +1,305 @@
+﻿@model ClinicNexa.Web.Models.Doctor
+
+@{
+    ViewData["Title"] = $"Dr. {Model.FirstName} {Model.LastName}";
+}
+
+<!-- Doctor Profile Header -->
+<section class="cn-hero mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-auto">
+            <div class="d-flex align-items-center justify-content-center rounded-circle"
+                 style="width: 110px; height: 110px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);">
+                <i class="bi bi-person-fill"
+                   style="font-size: 4.5rem; color: #67E8F9;"></i>
+            </div>
+        </div>
+
+        <div class="col">
+            <span class="badge rounded-pill bg-white text-primary px-3 py-2 mb-3">
+                <i class="bi bi-patch-check-fill me-1"></i>
+                Doctor Profile
+            </span>
+
+            <h1 class="display-5 fw-bold mb-2">
+                Dr. @Model.FirstName @Model.LastName
+            </h1>
+
+            <p class="lead mb-3">@Model.Qualification</p>
+
+            @foreach (var ds in Model.DoctorSpecialties)
+            {
+                <span class="badge rounded-pill me-1 mb-1 px-3 py-2"
+                      style="background: rgba(255,255,255,.16); color: white; border: 1px solid rgba(255,255,255,.25);">
+                    @ds.Specialty.Name
+                </span>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Profile Statistics -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="cn-card p-3 p-md-4 h-100">
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                     style="width: 52px; height: 52px; background: #dbeafe; color: #1d4ed8;">
+                    <i class="bi bi-briefcase fs-3"></i>
+                </div>
+
+                <div>
+                    <div class="cn-muted small">Experience</div>
+                    <div class="h4 fw-bold mb-0">
+                        @Model.ExperienceYears
+                        <span class="fs-6 fw-normal">years</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="cn-card p-3 p-md-4 h-100">
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                     style="width: 52px; height: 52px; background: #cffafe; color: #0e7490;">
+                    <i class="bi bi-cash-coin fs-3"></i>
+                </div>
+
+                <div>
+                    <div class="cn-muted small">Consultation Fee</div>
+                    <div class="h4 fw-bold text-primary mb-0">
+                        @Model.ConsultationFee.ToString("N0")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="cn-card p-3 p-md-4 h-100">
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                     style="width: 52px; height: 52px; background: #e0e7ff; color: #4338ca;">
+                    <i class="bi bi-chat-square-heart fs-3"></i>
+                </div>
+
+                <div>
+                    <div class="cn-muted small">Patient Reviews</div>
+                    <div class="h4 fw-bold mb-0">
+                        @Model.Reviews.Count
+                        <span class="fs-6 fw-normal">reviews</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="row g-4">
+
+    <!-- Profile and Reviews -->
+    <div class="col-lg-8">
+
+        <!-- About Doctor -->
+        @if (!string.IsNullOrWhiteSpace(Model.Bio))
+        {
+            <section class="cn-card p-4 p-md-5 mb-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="d-flex align-items-center justify-content-center rounded-3"
+                         style="width: 46px; height: 46px; background: #dbeafe; color: #1d4ed8;">
+                        <i class="bi bi-person-lines-fill fs-4"></i>
+                    </div>
+
+                    <h2 class="cn-page-title h4 mb-0">About the Doctor</h2>
+                </div>
+
+                <p class="cn-muted mb-0" style="white-space: pre-line;">@Model.Bio</p>
+            </section>
+        }
+
+        <!-- Patient Reviews -->
+        <section class="cn-card p-4 p-md-5">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                <div>
+                    <h2 class="cn-page-title h4 mb-1">
+                        <i class="bi bi-chat-square-heart me-2 text-primary"></i>
+                        Patient Reviews
+                    </h2>
+
+                    <p class="cn-muted mb-0">
+                        Feedback from patients who completed an appointment.
+                    </p>
+                </div>
+
+                <span class="badge rounded-pill px-3 py-2"
+                      style="background: #dbeafe; color: #1e40af;">
+                    @Model.Reviews.Count review@(Model.Reviews.Count == 1 ? "" : "s")
+                </span>
+            </div>
+
+            @if (!Model.Reviews.Any())
+            {
+                <div class="text-center py-5">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                         style="width: 72px; height: 72px; background: #eff6ff; color: #1d4ed8;">
+                        <i class="bi bi-chat-square-text fs-2"></i>
+                    </div>
+
+                    <h3 class="h5 fw-bold">No reviews yet</h3>
+
+                    <p class="cn-muted mb-0">
+                        Patient feedback will appear here when available.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="d-flex flex-column gap-3">
+                    @foreach (var review in Model.Reviews
+                                    .OrderByDescending(r => r.CreatedAt))
+                    {
+                        <article class="p-3 p-md-4 rounded-3"
+                                 style="background: #f7faff; border: 1px solid var(--cn-border);">
+
+                            <div class="d-flex flex-wrap justify-content-between gap-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="d-flex align-items-center justify-content-center rounded-circle flex-shrink-0"
+                                         style="width: 44px; height: 44px; background: #dbeafe; color: #1d4ed8;">
+                                        <i class="bi bi-person-fill fs-4"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3 class="h6 fw-bold mb-1">
+                                            @review.Patient.FirstName
+                                            @review.Patient.LastName
+                                        </h3>
+
+                                        <div class="text-warning"
+                                             aria-label="@review.Rating out of 5 stars">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= review.Rating)
+                                                {
+                                                    <i class="bi bi-star-fill"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-star"></i>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <small class="cn-muted">
+                                    @review.CreatedAt.ToLocalTime().ToString("dd MMM yyyy")
+                                </small>
+                            </div>
+
+                            @if (!string.IsNullOrWhiteSpace(review.Comment))
+                            {
+                                <p class="mt-3 mb-0"
+                                   style="white-space: pre-line;">@review.Comment</p>
+                            }
+                        </article>
+                    }
+                </div>
+            }
+        </section>
+    </div>
+
+    <!-- Schedule and Booking Sidebar -->
+    <aside class="col-lg-4">
+
+        <section class="cn-card p-4 mb-4">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="d-flex align-items-center justify-content-center rounded-3"
+                     style="width: 46px; height: 46px; background: #cffafe; color: #0e7490;">
+                    <i class="bi bi-calendar2-week fs-4"></i>
+                </div>
+
+                <div>
+                    <h2 class="cn-page-title h5 mb-1">Weekly Schedule</h2>
+                    <p class="cn-muted small mb-0">Regular availability</p>
+                </div>
+            </div>
+
+            @if (!Model.Schedules.Any(s => s.IsAvailable))
+            {
+                <div class="text-center py-4">
+                    <i class="bi bi-calendar-x fs-2 cn-muted"></i>
+                    <p class="cn-muted mt-2 mb-0">
+                        No schedule currently available.
+                    </p>
+                </div>
+            }
+            else
+            {
+                @foreach (var schedule in Model.Schedules
+                            .Where(s => s.IsAvailable)
+                            .OrderBy(s => s.DayOfWeek))
+                {
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 py-3 border-bottom"
+                         style="border-color: var(--cn-border) !important;">
+
+                        <span class="fw-semibold">
+                            @schedule.DayOfWeek
+                        </span>
+
+                        <span class="small cn-muted text-end">
+                            @schedule.StartTime.ToString(@"hh\:mm")
+                            –
+                            @schedule.EndTime.ToString(@"hh\:mm")
+                        </span>
+                    </div>
+                }
+            }
+
+            @if (User.IsInRole("Patient"))
+            {
+                <a asp-controller="Appointments"
+                   asp-action="Book"
+                   asp-route-doctorId="@Model.Id"
+                   class="btn btn-primary btn-lg w-100 mt-4">
+                    <i class="bi bi-calendar-check me-2"></i>
+                    Book Appointment
+                </a>
+            }
+            else if (!(User.Identity?.IsAuthenticated ?? false))
+            {
+                <a asp-area="Identity"
+                   asp-page="/Account/Login"
+                   class="btn btn-primary btn-lg w-100 mt-4">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>
+                    Login to Book
+                </a>
+            }
+        </section>
+
+        <div class="rounded-4 p-4"
+             style="background: linear-gradient(135deg, #102a56, #1d4ed8); color: white;">
+            <i class="bi bi-shield-check fs-2 mb-3 d-inline-block"
+               style="color: #67E8F9;"></i>
+
+            <h3 class="h5 fw-bold">Ready for your appointment?</h3>
+
+            <p class="small mb-0" style="color: #dbeafe;">
+                Review the doctor's schedule and sign in as a patient
+                to continue with booking.
+            </p>
+        </div>
+    </aside>
+</div>
+
+<!-- Back Navigation -->
+<div class="mt-4 mb-3">
+    <a asp-controller="Doctors"
+       asp-action="Index"
+       class="btn btn-outline-primary">
+        <i class="bi bi-arrow-left me-2"></i>
+        Back to Doctors
+    </a>
+</div>

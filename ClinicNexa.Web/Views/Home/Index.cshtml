@@ -1,0 +1,218 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class="cn-hero mb-5">
+    <div class="row align-items-center g-4 py-3">
+        <div class="col-lg-7">
+            <span class="badge rounded-pill bg-white text-primary px-3 py-2 mb-4">
+                <i class="bi bi-heart-pulse-fill me-2"></i>
+                Healthcare made simple
+            </span>
+
+            <h1 class="display-3 fw-bold mb-4">
+                Quality healthcare,
+                <span style="color: #67E8F9;">simplified.</span>
+            </h1>
+
+            <p class="lead mb-4" style="max-width: 600px;">
+                Find trusted doctors, explore specialties, and book
+                appointments with ease. Your journey to better healthcare
+                starts here.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3">
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="btn btn-light btn-lg">
+                    <i class="bi bi-search me-2"></i>
+                    Find a Doctor
+                </a>
+
+                <a asp-controller="Home"
+                   asp-action="About"
+                   class="btn btn-outline-light btn-lg">
+                    Learn More
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+
+            <div class="d-flex flex-wrap gap-4 mt-5">
+                <div>
+                    <div class="fs-4 fw-bold">
+                        <i class="bi bi-calendar2-check me-2"
+                           style="color: #67E8F9;"></i>
+                    </div>
+                    <small>Easy Booking</small>
+                </div>
+
+                <div>
+                    <div class="fs-4 fw-bold">
+                        <i class="bi bi-person-check me-2"
+                           style="color: #67E8F9;"></i>
+                    </div>
+                    <small>Doctor Profiles</small>
+                </div>
+
+                <div>
+                    <div class="fs-4 fw-bold">
+                        <i class="bi bi-clock-history me-2"
+                           style="color: #67E8F9;"></i>
+                    </div>
+                    <small>Schedule Management</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="cn-glass p-4 p-md-5 text-center">
+                <div class="mx-auto mb-4 d-flex align-items-center justify-content-center rounded-circle"
+                     style="width: 112px; height: 112px; background: rgba(103,232,249,.16);">
+                    <i class="bi bi-heart-pulse-fill"
+                       style="font-size: 4rem; color: #67E8F9;"></i>
+                </div>
+
+                <h2 class="h3 fw-bold mb-3">Your health matters</h2>
+
+                <p class="mb-4">
+                    Connect with healthcare professionals and manage
+                    your appointments through one simple platform.
+                </p>
+
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="btn btn-gradient w-100">
+                    Explore Our Doctors
+                    <i class="bi bi-arrow-up-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="mb-5 py-3">
+    <div class="text-center mb-5">
+        <span class="badge rounded-pill bg-white text-primary border px-3 py-2 mb-3">
+            THE CLINICNEXA EXPERIENCE
+        </span>
+
+        <h2 class="cn-page-title display-6 mb-3">
+            Healthcare, without the hassle
+        </h2>
+
+        <p class="cn-muted mx-auto" style="max-width: 650px;">
+            Everything you need to discover doctors and manage
+            your appointments in one convenient place.
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-xl-4">
+            <div class="cn-card h-100 p-4">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-3 mb-4"
+                     style="width: 58px; height: 58px; background: #dbeafe; color: #1d4ed8;">
+                    <i class="bi bi-person-badge fs-3"></i>
+                </div>
+
+                <h3 class="h5 fw-bold mb-3">Find the Right Doctor</h3>
+
+                <p class="cn-muted mb-4">
+                    Explore doctor profiles and specialties to find
+                    a healthcare professional who meets your needs.
+                </p>
+
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="fw-semibold mt-auto">
+                    Browse doctors
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="cn-card h-100 p-4">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-3 mb-4"
+                     style="width: 58px; height: 58px; background: #cffafe; color: #0e7490;">
+                    <i class="bi bi-calendar2-week fs-3"></i>
+                </div>
+
+                <h3 class="h5 fw-bold mb-3">Book Appointments</h3>
+
+                <p class="cn-muted mb-4">
+                    Check doctor schedules and choose a suitable
+                    appointment time with a straightforward booking process.
+                </p>
+
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="fw-semibold mt-auto">
+                    Find availability
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="cn-card h-100 p-4">
+                <div class="d-inline-flex align-items-center justify-content-center rounded-3 mb-4"
+                     style="width: 58px; height: 58px; background: #e0e7ff; color: #4338ca;">
+                    <i class="bi bi-chat-square-heart fs-3"></i>
+                </div>
+
+                <h3 class="h5 fw-bold mb-3">Share Your Experience</h3>
+
+                <p class="cn-muted mb-4">
+                    Share feedback after completing an appointment
+                    to help improve the patient experience.
+                </p>
+
+                <a asp-controller="Home"
+                   asp-action="About"
+                   class="fw-semibold mt-auto">
+                    Learn about ClinicNexa
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cn-card overflow-hidden mb-4">
+    <div class="row g-0 align-items-center">
+        <div class="col-lg-8">
+            <div class="p-4 p-md-5">
+                <span class="text-primary fw-semibold small text-uppercase">
+                    YOUR NEXT STEP
+                </span>
+
+                <h2 class="cn-page-title mt-2 mb-3">
+                    Ready to find your doctor?
+                </h2>
+
+                <p class="cn-muted mb-4">
+                    Explore doctor profiles and discover an appointment
+                    that fits your schedule.
+                </p>
+
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="btn btn-primary btn-lg">
+                    Get Started
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="h-100 d-flex align-items-center justify-content-center p-5"
+                 style="min-height: 220px; background: linear-gradient(135deg, #dbeafe, #cffafe);">
+                <i class="bi bi-hospital"
+                   style="font-size: 6rem; color: #1d4ed8;"></i>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,263 @@
+﻿@model IEnumerable<ClinicNexa.Web.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Manage Appointments";
+
+    var appointments = Model?.ToList()
+                       ?? new List<ClinicNexa.Web.Models.Appointment>();
+}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- Page Header -->
+    <div class="cn-hero rounded-4 p-4 p-lg-5 mb-4">
+        <div class="d-flex flex-column flex-md-row
+                    justify-content-between align-items-md-center gap-3">
+
+            <div>
+                <span class="badge rounded-pill bg-white text-primary mb-3">
+                    <i class="bi bi-shield-check me-1"></i>
+                    Administration
+                </span>
+
+                <h2 class="fw-bold mb-2">Manage Appointments</h2>
+
+                <p class="mb-0 opacity-75">
+                    View and monitor appointments across ClinicNexa.
+                </p>
+            </div>
+
+            <a asp-action="Dashboard"
+               class="btn btn-light rounded-3 px-4 py-2">
+                <i class="bi bi-arrow-left me-2"></i>
+                Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="cn-card p-4 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 p-3 bg-primary bg-opacity-10 text-primary">
+                        <i class="bi bi-calendar2-check fs-4"></i>
+                    </div>
+                    <div>
+                        <div class="cn-muted small">Total Appointments</div>
+                        <h3 class="fw-bold mb-0">@appointments.Count</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="cn-card p-4 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 p-3 bg-success bg-opacity-10 text-success">
+                        <i class="bi bi-check-circle fs-4"></i>
+                    </div>
+                    <div>
+                        <div class="cn-muted small">Completed</div>
+                        <h3 class="fw-bold mb-0">
+                            @appointments.Count(a => a.Status == "Completed")
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="cn-card p-4 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 p-3 bg-warning bg-opacity-10 text-warning">
+                        <i class="bi bi-hourglass-split fs-4"></i>
+                    </div>
+                    <div>
+                        <div class="cn-muted small">Pending</div>
+                        <h3 class="fw-bold mb-0">
+                            @appointments.Count(a => a.Status == "Pending")
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Table -->
+    <div class="cn-card overflow-hidden">
+
+        <div class="p-4 border-bottom">
+            <h5 class="fw-bold mb-1">All Appointments</h5>
+            <p class="cn-muted small mb-0">
+                Appointment details, current status, and patient reviews.
+            </p>
+        </div>
+
+        @if (!appointments.Any())
+        {
+            <div class="text-center p-5">
+                <div class="rounded-circle bg-primary bg-opacity-10
+                                text-primary d-inline-flex align-items-center
+                                justify-content-center mb-3"
+                     style="width: 76px; height: 76px;">
+                    <i class="bi bi-calendar-x fs-1"></i>
+                </div>
+
+                <h5 class="fw-bold">No appointments found</h5>
+
+                <p class="cn-muted mb-0">
+                    Appointments will appear here when patients make bookings.
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th class="px-3 py-3">Date</th>
+                            <th class="py-3">Time</th>
+                            <th class="py-3">Doctor</th>
+                            <th class="py-3">Patient</th>
+                            <th class="py-3">Reason</th>
+                            <th class="py-3">Status</th>
+                            <th class="py-3">Review</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var appointment in appointments)
+                        {
+                            <tr>
+                                <!-- Date -->
+                                <td class="px-3">
+                                    <div class="fw-semibold text-nowrap">
+                                        @appointment.AppointmentDate.ToString("dd MMM yyyy")
+                                    </div>
+                                </td>
+
+                                <!-- Time -->
+                                <td>
+                                    <span class="text-nowrap small">
+                                        <i class="bi bi-clock text-primary me-1"></i>
+                                        @appointment.StartTime.ToString(@"hh\:mm")
+                                        -
+                                        @appointment.EndTime.ToString(@"hh\:mm")
+                                    </span>
+                                </td>
+
+                                <!-- Doctor -->
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle bg-primary
+                                                            bg-opacity-10 text-primary
+                                                            d-flex align-items-center
+                                                            justify-content-center flex-shrink-0"
+                                             style="width: 36px; height: 36px;">
+                                            <i class="bi bi-person-badge"></i>
+                                        </div>
+
+                                        <span class="text-nowrap">
+                                            Dr. @appointment.Doctor.FirstName
+                                            @appointment.Doctor.LastName
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <!-- Patient -->
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-circle bg-info
+                                                            bg-opacity-10 text-info
+                                                            d-flex align-items-center
+                                                            justify-content-center flex-shrink-0"
+                                             style="width: 36px; height: 36px;">
+                                            <i class="bi bi-person"></i>
+                                        </div>
+
+                                        <span class="text-nowrap">
+                                            @appointment.Patient.FirstName
+                                            @appointment.Patient.LastName
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <!-- Reason -->
+                                <td style="min-width: 140px; max-width: 240px;">
+                                    @if (string.IsNullOrWhiteSpace(appointment.Reason))
+                                    {
+                                        <span class="cn-muted">—</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@appointment.Reason</span>
+                                    }
+                                </td>
+
+                                <!-- Status -->
+                                <td>
+                                    @if (appointment.Status == "Completed")
+                                    {
+                                        <span class="badge rounded-pill bg-success bg-opacity-10 text-success px-3 py-2">
+                                            <i class="bi bi-check-circle me-1"></i>
+                                            Completed
+                                        </span>
+                                    }
+                                    else if (appointment.Status == "Cancelled")
+                                    {
+                                        <span class="badge rounded-pill bg-secondary bg-opacity-10 text-secondary px-3 py-2">
+                                            <i class="bi bi-x-circle me-1"></i>
+                                            Cancelled
+                                        </span>
+                                    }
+                                    else if (appointment.Status == "Confirmed")
+                                    {
+                                        <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary px-3 py-2">
+                                            <i class="bi bi-check2-circle me-1"></i>
+                                            Confirmed
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge rounded-pill bg-warning bg-opacity-25 text-dark px-3 py-2">
+                                            @appointment.Status
+                                        </span>
+                                    }
+                                </td>
+
+                                <!-- Review -->
+                                <td>
+                                    @if (appointment.Review != null)
+                                    {
+                                        <span class="text-warning fw-semibold text-nowrap">
+                                            <i class="bi bi-star-fill me-1"></i>
+                                            @appointment.Review.Rating
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="cn-muted">—</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        }
+
+        @if (appointments.Any())
+        {
+            <div class="px-4 py-3 border-top">
+                <span class="cn-muted small">
+                    Showing @appointments.Count appointment(s)
+                </span>
+            </div>
+        }
+
+    </div>
+</div>

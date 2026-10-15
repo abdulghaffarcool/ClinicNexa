@@ -1,0 +1,424 @@
+
+/* =========================================================
+   ClinicNexa — Royal Blue + Electric Cyan Theme
+   ========================================================= */
+
+/* 1. Global Design System */
+
+:root {
+    --cn-primary: #1d4ed8;
+    --cn-primary-dark: #1e40af;
+    --cn-secondary: #102a56;
+    --cn-accent: #06b6d4;
+    --cn-accent-light: #67e8f9;
+    --cn-bg: #eaf2ff;
+    --cn-surface: #ffffff;
+    --cn-text: #172b4d;
+    --cn-muted: #526783;
+    --cn-border: #cbdcf5;
+    --cn-radius: 16px;
+    --cn-shadow: 0 8px 30px rgba(29, 78, 216, 0.09);
+    --cn-gradient: linear-gradient( 135deg, #1d4ed8 0%, #164eab 55%, #0891b2 100% );
+}
+
+/* 2. Base Layout */
+
+html {
+    font-size: 16px;
+    position: relative;
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--cn-bg);
+    color: var(--cn-text);
+    font-family: Inter, "Segoe UI", sans-serif;
+    line-height: 1.6;
+}
+
+main {
+    flex: 1;
+}
+
+a {
+    color: var(--cn-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+    a:hover {
+        color: var(--cn-primary-dark);
+    }
+
+/* 3. Navigation */
+
+.cn-navbar {
+    background: rgba(16, 42, 86, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(103, 232, 249, 0.18);
+    box-shadow: 0 5px 24px rgba(16, 42, 86, 0.15);
+}
+
+.cn-brand {
+    color: #ffffff !important;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
+
+    .cn-brand span {
+        color: var(--cn-accent-light);
+    }
+
+.cn-navbar .nav-link {
+    color: #dbeafe;
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 0.65rem 0.85rem;
+    margin: 0.1rem 0.12rem;
+    border-radius: 10px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+    .cn-navbar .nav-link:hover,
+    .cn-navbar .nav-link.active {
+        color: #ffffff;
+        background: rgba(6, 182, 212, 0.2);
+    }
+
+    .cn-navbar .nav-link.active {
+        font-weight: 700;
+    }
+
+.cn-navbar .navbar-toggler {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+}
+
+    .cn-navbar .navbar-toggler:focus {
+        box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.3);
+    }
+
+.cn-navbar .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+/* Login / Register links in the navbar */
+
+.cn-navbar .navbar-nav .nav-link,
+.cn-navbar .navbar-collapse > a {
+    transition: all 0.2s ease;
+}
+
+/* 4. Buttons */
+
+.btn {
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+    color: #ffffff;
+    background: var(--cn-gradient);
+    border-color: transparent;
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        color: #ffffff;
+        background: linear-gradient( 135deg, #1e40af, #0e7490 );
+        border-color: transparent;
+        box-shadow: 0 6px 18px rgba(29, 78, 216, 0.22);
+        transform: translateY(-1px);
+    }
+
+.btn-gradient {
+    color: #ffffff;
+    background: var(--cn-gradient);
+    border: 0;
+}
+
+    .btn-gradient:hover {
+        color: #ffffff;
+        filter: brightness(1.1);
+        transform: translateY(-1px);
+    }
+
+.btn-outline-primary {
+    color: var(--cn-primary);
+    border-color: var(--cn-primary);
+}
+
+    .btn-outline-primary:hover {
+        color: #ffffff;
+        background: var(--cn-primary);
+        border-color: var(--cn-primary);
+    }
+
+/* 5. Forms */
+
+.form-control,
+.form-select {
+    min-height: 44px;
+    color: var(--cn-text);
+    background-color: var(--cn-surface);
+    border: 1px solid var(--cn-border);
+    border-radius: 10px;
+}
+
+    .form-control::placeholder {
+        color: #8092aa;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        color: var(--cn-text);
+        background-color: #ffffff;
+        border-color: var(--cn-accent);
+        box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.17);
+    }
+
+.form-check-input:checked {
+    background-color: var(--cn-primary);
+    border-color: var(--cn-primary);
+}
+
+.form-check-input:focus {
+    border-color: var(--cn-accent);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.17);
+}
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* 6. Cards and Surfaces */
+
+.card,
+.cn-card {
+    color: var(--cn-text);
+    background: var(--cn-surface);
+    border: 1px solid #d8e6fa;
+    border-radius: var(--cn-radius);
+    box-shadow: var(--cn-shadow);
+}
+
+.card {
+    overflow: hidden;
+}
+
+.card-header {
+    color: var(--cn-secondary);
+    background: linear-gradient( 135deg, #eff6ff, #e0f2fe );
+    border-bottom: 1px solid var(--cn-border);
+}
+
+.card-footer {
+    background: #f0f7ff;
+    border-top: 1px solid var(--cn-border);
+}
+
+.card-title {
+    color: var(--cn-secondary);
+    font-weight: 700;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* 7. Tables */
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--cn-text);
+    --bs-table-border-color: var(--cn-border);
+}
+
+    .table thead th {
+        color: #234574;
+        background: #e8f2ff;
+        font-size: 0.85rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .table > :not(caption) > * > * {
+        padding: 0.85rem;
+        border-bottom-color: var(--cn-border);
+        vertical-align: middle;
+    }
+
+.table-hover > tbody > tr:hover > * {
+    --bs-table-bg-state: #eff6ff;
+    color: var(--cn-text);
+}
+
+/* 8. Badges and Alerts */
+
+.badge {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.alert {
+    border-radius: 12px;
+    border-width: 1px;
+}
+
+/* Keep semantic success, warning, and danger indicators
+   available for appointment and account statuses. */
+
+/* 9. Hero Sections */
+
+.cn-hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2rem, 5vw, 4.5rem);
+    color: #ffffff;
+    border-radius: 24px;
+    background: radial-gradient( circle at 85% 15%, rgba(34, 211, 238, 0.4), transparent 35% ), linear-gradient( 135deg, #102a56 0%, #1d4ed8 58%, #087eaa 100% );
+}
+
+    .cn-hero h1,
+    .cn-hero h2,
+    .cn-hero h3 {
+        color: #ffffff;
+        font-weight: 800;
+        letter-spacing: -0.7px;
+    }
+
+    .cn-hero p {
+        color: #dbeafe;
+    }
+
+/* 10. Glass Effects */
+
+.cn-glass {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--cn-radius);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.cn-glass-dark {
+    background: rgba(16, 42, 86, 0.72);
+    border: 1px solid rgba(103, 232, 249, 0.2);
+    border-radius: var(--cn-radius);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+/* 11. Page Headings and Text */
+
+.cn-page-title {
+    color: var(--cn-secondary);
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.cn-muted {
+    color: var(--cn-muted);
+}
+
+.text-primary {
+    color: var(--cn-primary) !important;
+}
+
+/* 12. Dividers */
+
+hr {
+    color: #9bb8e2;
+    opacity: 0.5;
+}
+
+/* 13. Footer */
+
+.cn-footer {
+    margin-top: auto;
+    padding: 1.5rem 0;
+    color: #dbeafe;
+    background: #102a56;
+    border-top: 1px solid rgba(103, 232, 249, 0.2);
+}
+
+    .cn-footer a {
+        color: var(--cn-accent-light);
+    }
+
+        .cn-footer a:hover {
+            color: #ffffff;
+        }
+
+/* 14. Focus and Accessibility */
+
+.btn:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--cn-accent);
+    outline-offset: 3px;
+}
+
+/* 15. Responsive Design */
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .cn-navbar .navbar-collapse {
+        padding: 0.75rem 0;
+    }
+
+    .cn-navbar .nav-link {
+        padding: 0.7rem 0.85rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .cn-hero {
+        padding: 2rem 1.25rem;
+        border-radius: 18px;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .table-responsive {
+        border-radius: 12px;
+    }
+}
+
+/* 16. Reduced Motion */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

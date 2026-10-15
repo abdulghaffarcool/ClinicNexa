@@ -1,0 +1,35 @@
+﻿# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# Local databases and database files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+secrets.json
+
+# Operating system
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Test results and coverage
+TestResults/
+coverage/

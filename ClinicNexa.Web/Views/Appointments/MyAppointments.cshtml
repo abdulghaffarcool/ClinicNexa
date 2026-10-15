@@ -1,0 +1,306 @@
+﻿@model IEnumerable<ClinicNexa.Web.Models.Appointment>
+
+@{
+    ViewData["Title"] = "My Appointments";
+    var appointments = Model?.ToList()
+                       ?? new List<ClinicNexa.Web.Models.Appointment>();
+
+    var activeCount = appointments.Count(a =>
+        a.Status == "Pending" || a.Status == "Confirmed");
+
+    var completedCount = appointments.Count(a =>
+        a.Status == "Completed");
+
+    var cancelledCount = appointments.Count(a =>
+        a.Status == "Cancelled");
+}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- Page Header -->
+    <div class="cn-hero p-4 p-lg-5 mb-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+                <span class="badge rounded-pill bg-white text-primary px-3 py-2 mb-3">
+                    <i class="bi bi-calendar2-check me-1"></i>
+                    Appointment Management
+                </span>
+
+                <h1 class="display-6 fw-bold text-white mb-3">
+                    My Appointments
+                </h1>
+
+                <p class="text-white opacity-75 mb-0">
+                    View your scheduled visits, check appointment details, and manage your bookings.
+                </p>
+            </div>
+
+            <div class="col-lg-4 text-lg-end">
+                <i class="bi bi-calendar-heart text-white"
+                   style="font-size: 6rem; opacity: 0.85;"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-6 col-lg-4">
+            <div class="cn-card p-3 p-lg-4 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                         style="width: 48px; height: 48px; background: #DBEAFE;">
+                        <i class="bi bi-calendar-event text-primary fs-4"></i>
+                    </div>
+
+                    <div>
+                        <div class="cn-muted small">Active</div>
+                        <div class="fs-3 fw-bold">@activeCount</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-4">
+            <div class="cn-card p-3 p-lg-4 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                         style="width: 48px; height: 48px; background: #D1FAE5;">
+                        <i class="bi bi-check-circle text-success fs-4"></i>
+                    </div>
+
+                    <div>
+                        <div class="cn-muted small">Completed</div>
+                        <div class="fs-3 fw-bold">@completedCount</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-4">
+            <div class="cn-card p-3 p-lg-4 h-100">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                         style="width: 48px; height: 48px; background: #FEE2E2;">
+                        <i class="bi bi-calendar-x text-danger fs-4"></i>
+                    </div>
+
+                    <div>
+                        <div class="cn-muted small">Cancelled</div>
+                        <div class="fs-3 fw-bold">@cancelledCount</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Appointments Heading -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h2 class="cn-page-title mb-1">All Appointments</h2>
+            <p class="cn-muted mb-0">
+                You have @appointments.Count appointment(s) in your records.
+            </p>
+        </div>
+
+        <a asp-controller="Doctors"
+           asp-action="Index"
+           class="btn btn-gradient">
+            <i class="bi bi-search me-1"></i>
+            Find a Doctor
+        </a>
+    </div>
+
+    <!-- Appointment Cards -->
+    @if (!appointments.Any())
+    {
+        <div class="cn-card text-center p-4 p-lg-5">
+            <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                 style="width: 84px; height: 84px; background: #DBEAFE;">
+                <i class="bi bi-calendar2-plus text-primary"
+                   style="font-size: 2.5rem;"></i>
+            </div>
+
+            <h4 class="fw-bold mb-2">No appointments yet</h4>
+
+            <p class="cn-muted mb-4">
+                You haven't booked any appointments. Find a doctor to get started.
+            </p>
+
+            <div>
+                <a asp-controller="Doctors"
+                   asp-action="Index"
+                   class="btn btn-gradient">
+                    <i class="bi bi-search me-1"></i>
+                    Browse Doctors
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+
+            @foreach (var appointment in appointments)
+            {
+                <div class="col-md-6 col-xl-4">
+                    <div class="cn-card h-100 p-4">
+
+                        <!-- Doctor Information -->
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                                 style="width: 52px; height: 52px; background: #DBEAFE;">
+                                <i class="bi bi-person-badge text-primary fs-3"></i>
+                            </div>
+
+                            <div class="flex-grow-1">
+                                <h5 class="fw-bold mb-1">
+                                    Dr. @appointment.Doctor.FirstName
+                                    @appointment.Doctor.LastName
+                                </h5>
+
+                                <div class="cn-muted small">
+                                    Appointment #@appointment.Id
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="mb-3">
+                            @if (appointment.Status == "Confirmed")
+                            {
+                                <span class="badge rounded-pill bg-success-subtle text-success px-3 py-2">
+                                    <i class="bi bi-check-circle me-1"></i>
+                                    Confirmed
+                                </span>
+                            }
+                            else if (appointment.Status == "Cancelled")
+                            {
+                                <span class="badge rounded-pill bg-danger-subtle text-danger px-3 py-2">
+                                    <i class="bi bi-x-circle me-1"></i>
+                                    Cancelled
+                                </span>
+                            }
+                            else if (appointment.Status == "Pending")
+                            {
+                                <span class="badge rounded-pill bg-warning-subtle text-dark px-3 py-2">
+                                    <i class="bi bi-hourglass-split me-1"></i>
+                                    Pending
+                                </span>
+                            }
+                            else if (appointment.Status == "Completed")
+                            {
+                                <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-2">
+                                    <i class="bi bi-check2-all me-1"></i>
+                                    Completed
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge rounded-pill bg-secondary-subtle text-secondary px-3 py-2">
+                                    @appointment.Status
+                                </span>
+                            }
+                        </div>
+
+                        <hr class="my-3" />
+
+                        <!-- Date and Time -->
+                        <div class="d-flex gap-3 mb-3">
+                            <div class="text-primary fs-5">
+                                <i class="bi bi-calendar3"></i>
+                            </div>
+
+                            <div>
+                                <div class="cn-muted small">Appointment Date</div>
+                                <div class="fw-semibold">
+                                    @appointment.AppointmentDate.ToString("dddd, MMM dd, yyyy")
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3 mb-3">
+                            <div class="text-primary fs-5">
+                                <i class="bi bi-clock"></i>
+                            </div>
+
+                            <div>
+                                <div class="cn-muted small">Appointment Time</div>
+                                <div class="fw-semibold">
+                                    @appointment.StartTime.ToString(@"hh\:mm")
+                                    -
+                                    @appointment.EndTime.ToString(@"hh\:mm")
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reason -->
+                        @if (!string.IsNullOrWhiteSpace(appointment.Reason))
+                        {
+                            <div class="rounded-3 p-3 mt-1 mb-3"
+                                 style="background: #F3F7FF;">
+                                <div class="cn-muted small mb-1">
+                                    <i class="bi bi-chat-left-text me-1"></i>
+                                    Reason for Visit
+                                </div>
+
+                                <div class="small">
+                                    @appointment.Reason
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Actions -->
+                        <div class="mt-auto pt-3">
+                            @if (appointment.Status == "Pending" ||
+                                                appointment.Status == "Confirmed")
+                            {
+                                <form asp-action="Cancel"
+                                      method="post"
+                                      onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@appointment.Id" />
+
+                                    <button type="submit"
+                                            class="btn btn-outline-danger btn-sm w-100">
+                                        <i class="bi bi-x-circle me-1"></i>
+                                        Cancel Appointment
+                                    </button>
+                                </form>
+                            }
+                            else if (appointment.Status == "Completed")
+                            {
+                                <div class="small text-success">
+                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                    Appointment completed
+                                </div>
+                            }
+                            else if (appointment.Status == "Cancelled")
+                            {
+                                <div class="small cn-muted">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    This appointment has been cancelled.
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+
+    <!-- Helpful Note -->
+    <div class="d-flex align-items-start gap-3 mt-4 p-3 rounded-3"
+         style="background: #EAF2FF;">
+        <i class="bi bi-info-circle text-primary fs-4"></i>
+        <p class="cn-muted mb-0">
+            Please check your appointment date, time, and status before your visit. Pending appointments may require confirmation.
+        </p>
+    </div>
+
+</div>

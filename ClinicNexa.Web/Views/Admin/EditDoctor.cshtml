@@ -1,0 +1,318 @@
+﻿@model ClinicNexa.Web.ViewModels.AdminDoctorEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Doctor";
+}
+
+<div class="container py-4 py-lg-5">
+
+    <!-- Page Header -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div>
+            <span class="badge rounded-pill px-3 py-2 mb-2"
+                  style="background: #DBEAFE; color: #1D4ED8;">
+                <i class="bi bi-person-gear me-1"></i>
+                Doctor Management
+            </span>
+
+            <h2 class="cn-page-title mb-2">Edit Doctor</h2>
+            <p class="cn-muted mb-0">
+                Update the doctor's account, professional profile, and specialties.
+            </p>
+        </div>
+
+        <a asp-action="Doctors"
+           class="btn btn-outline-primary rounded-3">
+            <i class="bi bi-arrow-left me-2"></i>Back to Doctors
+        </a>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Edit Form -->
+        <div class="col-lg-8">
+            <div class="cn-card p-4 p-lg-5">
+
+                <form asp-action="EditDoctor" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden"
+                           name="id"
+                           value="@Context.Request.RouteValues["id"]" />
+
+                    <div asp-validation-summary="ModelOnly"
+                         class="alert alert-danger rounded-3"
+                         role="alert"></div>
+
+                    <!-- Account Information -->
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                             style="width: 48px; height: 48px; background: #DBEAFE; color: #1D4ED8;">
+                            <i class="bi bi-person-badge fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Account Information</h5>
+                            <p class="cn-muted small mb-0">
+                                Update the doctor's name and contact details.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label asp-for="FirstName" class="form-label fw-semibold">
+                                First Name
+                            </label>
+                            <input asp-for="FirstName"
+                                   class="form-control"
+                                   placeholder="Enter first name"
+                                   autocomplete="given-name" />
+                            <span asp-validation-for="FirstName"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="LastName" class="form-label fw-semibold">
+                                Last Name
+                            </label>
+                            <input asp-for="LastName"
+                                   class="form-control"
+                                   placeholder="Enter last name"
+                                   autocomplete="family-name" />
+                            <span asp-validation-for="LastName"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label fw-semibold">
+                                Email Address
+                            </label>
+                            <input asp-for="Email"
+                                   type="email"
+                                   class="form-control"
+                                   placeholder="doctor@example.com"
+                                   autocomplete="email" />
+                            <span asp-validation-for="Email"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Phone" class="form-label fw-semibold">
+                                Phone Number
+                            </label>
+                            <input asp-for="Phone"
+                                   type="tel"
+                                   class="form-control"
+                                   placeholder="Enter phone number"
+                                   autocomplete="tel" />
+                            <span asp-validation-for="Phone"
+                                  class="text-danger small"></span>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <!-- Professional Information -->
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                             style="width: 48px; height: 48px; background: #CFFAFE; color: #0E7490;">
+                            <i class="bi bi-clipboard2-pulse fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-1">Professional Information</h5>
+                            <p class="cn-muted small mb-0">
+                                Maintain qualifications, experience, and consultation fees.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-4">
+                            <label asp-for="Gender" class="form-label fw-semibold">
+                                Gender
+                            </label>
+                            <select asp-for="Gender" class="form-select">
+                                <option value="">Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span asp-validation-for="Gender"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="Qualification" class="form-label fw-semibold">
+                                Qualification
+                            </label>
+                            <input asp-for="Qualification"
+                                   class="form-control"
+                                   placeholder="e.g. MBBS, FCPS" />
+                            <span asp-validation-for="Qualification"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="ExperienceYears" class="form-label fw-semibold">
+                                Experience (Years)
+                            </label>
+                            <input asp-for="ExperienceYears"
+                                   type="number"
+                                   min="0"
+                                   class="form-control" />
+                            <span asp-validation-for="ExperienceYears"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="ConsultationFee" class="form-label fw-semibold">
+                                Consultation Fee
+                            </label>
+
+                            <div class="input-group">
+                                <span class="input-group-text fw-semibold">PKR</span>
+                                <input asp-for="ConsultationFee"
+                                       type="number"
+                                       min="0"
+                                       step="0.01"
+                                       class="form-control"
+                                       placeholder="0.00" />
+                            </div>
+
+                            <span asp-validation-for="ConsultationFee"
+                                  class="text-danger small"></span>
+                        </div>
+
+                        <!-- Specialties -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">
+                                Specialties
+                            </label>
+
+                            @if (Model.Specialties?.Any() == true)
+                            {
+                                <div class="border rounded-3 p-3"
+                                     style="max-height: 190px; overflow-y: auto;">
+
+                                    @for (var i = 0; i < Model.Specialties.Count; i++)
+                                    {
+                                        var specialty = Model.Specialties[i];
+                                        var checkboxId = $"specialty_{specialty.Id}";
+
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   id="@checkboxId"
+                                                   name="SelectedSpecialtyIds"
+                                                   value="@specialty.Id"
+                                                   checked="@specialty.Selected" />
+
+                                            <label class="form-check-label"
+                                                   for="@checkboxId">
+                                                @specialty.Name
+                                            </label>
+                                        </div>
+                                    }
+
+                                </div>
+
+                                <div class="form-text">
+                                    Select all specialties applicable to this doctor.
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning rounded-3 mb-0">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                    No specialties have been created yet.
+                                </div>
+                            }
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="Bio" class="form-label fw-semibold">
+                                Professional Biography
+                            </label>
+                            <textarea asp-for="Bio"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Describe the doctor's background, expertise, and approach to patient care."></textarea>
+                            <span asp-validation-for="Bio"
+                                  class="text-danger small"></span>
+                        </div>
+
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="d-flex flex-column-reverse flex-sm-row justify-content-end gap-2 mt-4 pt-3 border-top">
+                        <a asp-action="Doctors"
+                           class="btn btn-outline-secondary rounded-3 px-4">
+                            Cancel
+                        </a>
+
+                        <button type="submit"
+                                class="btn btn-gradient rounded-3 px-4">
+                            <i class="bi bi-save me-2"></i>Save Changes
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+
+            <div class="cn-card p-4 mb-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0"
+                         style="width: 44px; height: 44px; background: #DBEAFE; color: #1D4ED8;">
+                        <i class="bi bi-info-circle fs-5"></i>
+                    </div>
+                    <h5 class="fw-bold mb-0">Profile Guidelines</h5>
+                </div>
+
+                <ul class="list-unstyled mb-0">
+                    <li class="d-flex gap-2 mb-3">
+                        <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                        <span class="cn-muted">
+                            Keep the doctor's contact details accurate.
+                        </span>
+                    </li>
+                    <li class="d-flex gap-2 mb-3">
+                        <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                        <span class="cn-muted">
+                            Verify qualifications and experience before updating them.
+                        </span>
+                    </li>
+                    <li class="d-flex gap-2">
+                        <i class="bi bi-check-circle-fill text-primary mt-1"></i>
+                        <span class="cn-muted">
+                            Assign the appropriate specialties so patients can find the doctor.
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="rounded-4 p-4"
+                 style="background: linear-gradient(135deg, #102A56, #1D4ED8); color: white;">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <i class="bi bi-shield-check fs-2"></i>
+                    <h5 class="fw-bold mb-0">Account Security</h5>
+                </div>
+
+                <p class="small mb-0" style="color: #DBEAFE;">
+                    Passwords are managed separately through the account security workflow. Profile edits should not expose or overwrite login credentials.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

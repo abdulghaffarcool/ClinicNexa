@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container py-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold mb-1">Admin Dashboard</h2>
+        <p class="text-muted mb-0">
+            Overview of ClinicNexa.
+        </p>
+    </div>
+
+    <!-- Main Metrics -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Doctors</h6>
+                    <h2 class="fw-bold">
+                        @ViewBag.TotalDoctors
+                    </h2>
+                    <a asp-action="Doctors"
+                       class="small">
+                        Manage Doctors →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Active Doctors</h6>
+                    <h2 class="fw-bold">
+                        @ViewBag.ActiveDoctors
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Patients</h6>
+                    <h2 class="fw-bold">
+                        @ViewBag.TotalPatients
+                    </h2>
+                    <a asp-action="Patients"
+                       class="small">
+                        Manage Patients →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Appointments</h6>
+                    <h2 class="fw-bold">
+                        @ViewBag.TotalAppointments
+                    </h2>
+                    <a asp-action="Appointments"
+                       class="small">
+                        View Appointments →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Appointment Status -->
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="text-muted">
+                        Pending Appointments
+                    </h6>
+
+                    <h3 class="fw-bold">
+                        @ViewBag.PendingAppointments
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="text-muted">
+                        Completed Appointments
+                    </h6>
+
+                    <h3 class="fw-bold">
+                        @ViewBag.CompletedAppointments
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="text-muted">
+                        Cancelled Appointments
+                    </h6>
+
+                    <h3 class="fw-bold">
+                        @ViewBag.CancelledAppointments
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card shadow-sm border-0 mt-4">
+
+        <div class="card-body p-4">
+
+            <h5 class="fw-bold mb-3">
+                Quick Actions
+            </h5>
+
+            <div class="d-flex flex-wrap gap-2">
+
+                <a asp-action="Doctors"
+                   class="btn btn-outline-primary">
+                    <i class="bi bi-person-badge"></i>
+                    Doctors
+                </a>
+
+                <a asp-action="Patients"
+                   class="btn btn-outline-primary">
+                    <i class="bi bi-people"></i>
+                    Patients
+                </a>
+
+                <a asp-controller="Specialty" asp-action="Specialties"
+                   class="btn btn-outline-primary">
+                    <i class="bi bi-heart-pulse"></i>
+                    Specialties
+                </a>
+
+                <a asp-action="Appointments"
+                   class="btn btn-outline-primary">
+                    <i class="bi bi-calendar-check"></i>
+                    Appointments
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
