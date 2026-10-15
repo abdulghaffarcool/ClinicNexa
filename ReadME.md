@@ -14,22 +14,22 @@ Register as Patient, Browse doctors, Book appointments.
 ### Administrator Dashboard
 Manage doctors, patients, specialties, and appointments.
 
-![ClinicNexa Admin Dashboard](docs/screenshots/admin-dashboard.png)
+![ClinicNexa Admin Dashboard](docs/screenshots/Admin-Dashboard.png)
 
 ### Doctor Listing
 Browse doctors, explore specialties, and view doctor profiles.
 
-![ClinicNexa Doctor Listing](docs/screenshots/admin-doctors.png)
+![ClinicNexa Doctor Listing](docs/screenshots/Admin-Doctors.png)
 
 ### Doctor Schedule Management
 Configure working hours and manage schedule availability.
 
-![ClinicNexa Doctor Schedules](docs/screenshots/doctor-schedule.png)
+![ClinicNexa Doctor Schedules](docs/screenshots/Doctor-Schedule.png)
 
 ### Admin Patient Management
 Configure working hours and manage schedule availability.
 
-![ClinicNexa Doctor Schedules](docs/screenshots/admin-patients.png)
+![ClinicNexa Doctor Schedules](docs/screenshots/Admin-Patients.png)
 
 ### Book Appointments
 Patient browse doctors and book appointments.
@@ -184,7 +184,7 @@ SQLite is included as a local database option, so no separate database server is
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/abdulghaffarcool/ClinicNexa.git
 cd clinicnexa
 ```
 
