@@ -9,12 +9,12 @@ using System.Security.Claims;
 namespace ClinicNexa.Web.Controllers;
 
 [Authorize(Roles = "Doctor")]
-public class DoctorController : Controller
+public class DoctorController : BaseController
 {
     private readonly ApplicationDbContext _context;
 
-    public DoctorController(
-        ApplicationDbContext context)
+    public DoctorController(ApplicationDbContext context
+        , ILogger<BaseController> logger) : base(logger)
     {
         _context = context;
     }
@@ -34,9 +34,7 @@ public class DoctorController : Controller
             .FirstOrDefaultAsync(d => d.UserId == userId);
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var appointments = await _context.Appointments
             .Where(a => a.DoctorId == doctor.Id)
@@ -78,9 +76,7 @@ public class DoctorController : Controller
             .FirstOrDefaultAsync(d => d.UserId == userId);
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var appointment = await _context.Appointments
             .FirstOrDefaultAsync(a =>
@@ -112,9 +108,7 @@ public class DoctorController : Controller
             .FirstOrDefaultAsync(d => d.UserId == userId);
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var appointment = await _context.Appointments
             .FirstOrDefaultAsync(a =>
@@ -146,9 +140,7 @@ public class DoctorController : Controller
             .FirstOrDefaultAsync(d => d.UserId == userId);
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var appointment = await _context.Appointments
             .FirstOrDefaultAsync(a =>
@@ -178,7 +170,7 @@ public class DoctorController : Controller
 
     }
 
-#endregion
+    #endregion
 
     #region Profile    
 
@@ -192,7 +184,7 @@ public class DoctorController : Controller
             .FirstOrDefaultAsync(d => d.UserId == userId);
 
         if (doctor == null)
-            return BadRequest("Doctor profile not found.");
+            return ApplicationError("Doctor profile not found.");
 
         var specialties = await _context.Specialties
             .OrderBy(s => s.Name)
@@ -240,7 +232,7 @@ public class DoctorController : Controller
             .FirstOrDefaultAsync(d => d.UserId == userId);
 
         if (doctor == null)
-            return BadRequest("Doctor profile not found.");
+            return ApplicationError("Doctor profile not found.");
 
         if (!ModelState.IsValid)
         {

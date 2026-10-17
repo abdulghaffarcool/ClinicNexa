@@ -9,11 +9,12 @@ using Microsoft.EntityFrameworkCore;
 namespace ClinicNexa.Web.Controllers;
 
 [Authorize(Roles = "Doctor")]
-public class ScheduleController : Controller
+public class ScheduleController : BaseController
 {
     private readonly ApplicationDbContext _context;
 
-    public ScheduleController(ApplicationDbContext context)
+    public ScheduleController(ApplicationDbContext context
+        , ILogger<BaseController> logger) : base(logger)
     {
         _context = context;
     }
@@ -24,9 +25,7 @@ public class ScheduleController : Controller
         var doctor = await GetCurrentDoctorAsync();
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var schedules = await _context.DoctorSchedules
             .Where(s => s.DoctorId == doctor.Id)
@@ -61,9 +60,7 @@ public class ScheduleController : Controller
         var doctor = await GetCurrentDoctorAsync();
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var existingSchedules = await _context.DoctorSchedules
             .Where(s =>
@@ -112,9 +109,7 @@ public class ScheduleController : Controller
         var doctor = await GetCurrentDoctorAsync();
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var schedule = await _context.DoctorSchedules
             .FirstOrDefaultAsync(s =>
@@ -154,9 +149,7 @@ public class ScheduleController : Controller
         var doctor = await GetCurrentDoctorAsync();
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var schedule = await _context.DoctorSchedules
             .FirstOrDefaultAsync(s =>
@@ -211,9 +204,7 @@ public class ScheduleController : Controller
         var doctor = await GetCurrentDoctorAsync();
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var schedule = await _context.DoctorSchedules
             .FirstOrDefaultAsync(s =>
@@ -242,9 +233,7 @@ public class ScheduleController : Controller
         var doctor = await GetCurrentDoctorAsync();
 
         if (doctor == null)
-        {
-            return BadRequest("Doctor profile not found.");
-        }
+            return ApplicationError("Doctor profile not found.");
 
         var schedule = await _context.DoctorSchedules
             .FirstOrDefaultAsync(s =>

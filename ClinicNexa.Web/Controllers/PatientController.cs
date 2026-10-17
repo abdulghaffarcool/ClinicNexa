@@ -13,13 +13,15 @@ namespace ClinicNexa.Web.Controllers;
 
 [Authorize(Roles = "Patient")]
 [ActivePatient]
-public class PatientController : Controller
+public class PatientController : BaseController
 {
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public PatientController(
-        ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        ApplicationDbContext context
+        , UserManager<ApplicationUser> userManager
+        , ILogger<BaseController> logger) : base(logger)
     {
         _context = context;
         _userManager = userManager;
@@ -38,9 +40,7 @@ public class PatientController : Controller
             .FirstOrDefaultAsync(p => p.UserId == userId);
 
         if (patient == null)
-        {
-            return BadRequest("Patient profile not found.");
-        }
+            return ApplicationError("Patient profile not found.");
 
         var appointments = await _context.Appointments
             .Where(a => a.PatientId == patient.Id)
@@ -84,7 +84,7 @@ public class PatientController : Controller
             .FirstOrDefaultAsync(p => p.UserId == userId);
 
         if (patient == null)
-            return BadRequest("Patient profile not found.");
+            return ApplicationError("Patient profile not found.");
 
         var model = new PatientProfileViewModel
         {
@@ -111,7 +111,7 @@ public class PatientController : Controller
             .FirstOrDefaultAsync(p => p.UserId == userId);
 
         if (patient == null)
-            return BadRequest("Patient profile not found.");
+            return ApplicationError("Patient profile not found.");
 
         if (!ModelState.IsValid)
             return View(model);

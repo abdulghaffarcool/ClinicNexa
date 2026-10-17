@@ -12,14 +12,15 @@ namespace ClinicNexa.Web.Controllers;
 
 [Authorize(Roles = "Patient")]
 [ActivePatient]
-public class AppointmentsController : Controller
+public class AppointmentsController : BaseController
 {
     private readonly ApplicationDbContext _context;
     private readonly IAppointmentService _appointmentService;
 
     public AppointmentsController(
         ApplicationDbContext context,
-        IAppointmentService appointmentService)
+        IAppointmentService appointmentService
+        , ILogger<BaseController> logger) : base(logger)
     {
         _context = context;
         _appointmentService = appointmentService;
@@ -100,9 +101,7 @@ public class AppointmentsController : Controller
             .FirstOrDefaultAsync(p => p.UserId == userId);
 
         if (patient == null)
-        {
-            return BadRequest("Patient profile not found.");
-        }        
+            return ApplicationError("Patient profile not found.");
 
         var schedules = await _context.DoctorSchedules
             .Where(s =>
@@ -194,9 +193,7 @@ public class AppointmentsController : Controller
             .FirstOrDefaultAsync(p => p.UserId == userId);
 
         if (patient == null)
-        {
-            return BadRequest("Patient profile not found.");
-        }
+            return ApplicationError("Patient profile not found.");
 
         var appointments = await _context.Appointments
             .Where(a => a.PatientId == patient.Id)
@@ -223,9 +220,7 @@ public class AppointmentsController : Controller
             .FirstOrDefaultAsync(p => p.UserId == userId);
 
         if (patient == null)
-        {
-            return BadRequest("Patient profile not found.");
-        }
+            return ApplicationError("Patient profile not found.");
 
         var appointment = await _context.Appointments
             .FirstOrDefaultAsync(a =>

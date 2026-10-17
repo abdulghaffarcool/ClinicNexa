@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Request Error";
+    var code = ViewBag.StatusCode is int status ? status : 500;
+}
+
+<div class="container py-5 text-center">
+    <h1 class="display-4">@code</h1>
+
+    @if (code == 404)
+    {
+        <h2>Page not found</h2>
+        <p class="text-muted">
+            The page you're looking for doesn't exist or may have moved.
+        </p>
+    }
+    else if (code == 403)
+    {
+        <h2>Access denied</h2>
+        <p class="text-muted">
+            You don't have permission to access this resource.
+        </p>
+    }
+    else
+    {
+        <h2>Unable to process your request</h2>
+        <p class="text-muted">
+            Something went wrong. Please try again later.
+        </p>
+    }
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-primary mt-3">
+        Return to Home
+    </a>
+</div>
