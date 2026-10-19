@@ -110,6 +110,18 @@ public class AppointmentsController : BaseController
                 s.IsAvailable)
             .ToListAsync();
 
+        if (!model.SelectedStartTime.HasValue)
+        {
+            ModelState.AddModelError("", "Please select an appointment time.");
+
+            model.AvailableSlots =
+                await _appointmentService.GetAvailableSlotsAsync(
+                    doctor.Id,
+                    model.Date);
+
+            return View(model);
+        }
+
         var selectedStart = model.SelectedStartTime.Value;
 
         var schedule = schedules.FirstOrDefault(s =>
