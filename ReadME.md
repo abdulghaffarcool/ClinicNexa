@@ -1,4 +1,5 @@
 # ClinicNexa
+[![ClinicNexa CI](https://github.com/abdulghaffarcool/ClinicNexa/actions/workflows/ci.yml/badge.svg)](https://github.com/abdulghaffarcool/ClinicNexa/actions/workflows/ci.yml)
 
 **ClinicNexa** is a modern, responsive healthcare management platform built with ASP.NET Core MVC. It provides a simple platform for managing doctors, patients, specialties, schedules, appointments, and reviews.
 
@@ -170,6 +171,37 @@ The application will automatically seed:
 * Sample reviews
 
 This allows the application to be explored immediately after setup.
+
+## Testing and Continuous Integration
+
+ClinicNexa includes automated tests for appointment scheduling business rules, using **xUnit**, **Entity Framework Core**, and an in-memory SQLite database.
+
+### Test Coverage
+
+The current test suite covers:
+
+- Default appointment status and creation timestamp.
+- Generating available slots within a doctor's schedule.
+- Excluding already-booked slots.
+- Making cancelled appointment slots available again.
+- Returning no slots for unavailable schedules.
+- Ensuring appointments on other dates do not block available slots.
+
+### Run Tests Locally
+
+Run the following commands from the solution root:
+
+```powershell
+dotnet restore ClinicNexa.sln
+dotnet build ClinicNexa.sln --configuration Release
+dotnet test ClinicNexa.sln --configuration Release
+```
+
+### GitHub Actions CI
+
+A GitHub Actions workflow automatically restores dependencies, builds the solution in Release configuration, and runs the automated tests when code is pushed to `main` or a pull request targets `main`.
+
+The workflow is defined in `.github/workflows/ci.yml`.
 
 ## Running Locally
 
